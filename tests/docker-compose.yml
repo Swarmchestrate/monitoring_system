@@ -1,0 +1,243 @@
+#
+# Copyright (C) 2017-2025 Institute of Communication and Computer Systems (imu.iccs.gr)
+#
+# This Source Code Form is subject to the terms of the Mozilla Public License, v2.0, unless
+# Esper library is used, in which case it is subject to the terms of General Public License v2.0.
+# If a copy of the MPL was not distributed with this file, you can obtain one at
+# https://www.mozilla.org/en-US/MPL/2.0/
+#
+
+services:
+  ems:
+    container_name: "ems"
+    image: ${EMS_IMAGE_REPO}:${EMS_IMAGE_TAG}${EMS_IMAGE_TAG_EXTRA}
+    restart: unless-stopped
+    environment:
+      # ==========================================================
+      # =====                EMS core settings               =====
+      # ==========================================================
+      #
+      # ===== INITIALIZATION settings =====
+      #   --- Entrypoint and run.sh ---
+      #     - EMS_CONFIG_DIR=/config
+      - JASYPT_PASSWORD=${P_JASYPT_PASSWORD}
+      - NET_UTIL_ADDRESS_DISCOVERY_SERVICES=-
+      #      - EMS_IP_SETTING=DEFAULT_IP
+      #
+      # ===== Log settings =====
+      - EMS_LOG_REQUESTS=false
+      #      - LOG_CONFIG_FILE=/config/logback-conf/logback-spring.xml
+      #      - LOG_FILE=/logs/ems.log
+      #      - LOGS_DIR=/logs
+      #- LOGGING_LEVEL_GR_ICCS_IMU_EMS_TRANSLATE=TRACE
+      #
+      # ===== External dependencies settings =====
+      #      - EXTRA_LOADER_PATHS=/plugins/*               # the paths inside EMS server container
+      #      - SCAN_PACKAGES=eu.nebulous.ems               # packages to scan for components (Nebulous)
+      #- SCAN_PACKAGES=eu.melodic.ems               # packages to scan for components (Melodic/Morphemic)
+      #
+      # ===== EMS Control Service settings =====
+      - EMS_IP_SETTING=DEFAULT_IP
+      #- EMS_SERVER_ADDRESS=ems ...or SERVER_IP
+      #
+      #- EMS_TC_FILE=/models/TC/%s.json
+      - EMS_PRELOAD_APP_MODEL=test2.yml
+      - EMS_PRELOAD_CP_MODEL=
+      #
+      # ===== EMS server --DEBUG-- settings =====
+      - CONTROL_SKIP_MVV_RETRIEVE=true
+      - CONTROL_SKIP_METASOLVER=true
+      - CONTROL_SKIP_NOTIFICATION=true
+      #
+      # ===== EMS server exit and restart settings =====
+      - CONTROL_EXIT_ALLOWED=true
+      - RESTART_EXIT_CODE=99
+      #
+      # =====  Security and Web Management settings  =====
+      - CONTROL_SSL_KEY_ENTRY_GENERATE=ALWAYS        # Keystore & Truststore are generated during container startup
+      #      - CONTROL_SSL_KEYSTORE_FILE=/certs/keystore.p12
+      - CONTROL_SSL_KEYSTORE_PASSWORD=${P_KEYSTORE_PASSWORD}
+      #      - CONTROL_SSL_TRUSTSTORE_FILE=/certs/truststore.p12
+      - CONTROL_SSL_TRUSTSTORE_PASSWORD=${P_KEYSTORE_PASSWORD}
+      #      - CONTROL_SSL_CERTIFICATE_FILE=/certs/ems.crt
+      #      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=*
+      #      - MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS=always
+      #
+      #- MELODIC_SECURITY_ENABLED=false
+      - JWT_SECRET=${P_JWT_SECRET}
+      - WEB_SECURITY_JWT_AUTHENTICATION_REQUEST_PARAMETER=jwt    #XXX:TODO: Comment out these two settings for improved security
+      - WEB_SECURITY_JWT_AUTHENTICATION_PRINT_SAMPLE_TOKEN=true
+      - WEB_SECURITY_API_KEY_AUTHENTICATION_VALUE=${P_WEB_API_KEY_VALUE}
+      - WEB_SECURITY_FORM_AUTHENTICATION_PASSWORD=${P_WEB_ADMIN_PASSWORD}
+      #
+      # =====  Topic Beacon settings  =====
+      #- BEACON_ENABLED=false
+      - BEACON_INITIAL_DELAY=10000
+      - BEACON_DELAY=10000
+      #
+      # ===== Translator settings =====
+      #- TRANSLATOR_MODELS_DIR=/models
+      #
+      #- TRANSLATOR_PRINT_RESULTS=false
+      #- TRANSLATOR_DAG_EXPORT_TO_DOT_ENABLED=TRUE
+      #- TRANSLATOR_DAG_EXPORT_TO_FILE_ENABLED=TRUE
+      #- TRANSLATOR_DAG_EXPORT_FORMATS=png, svg
+      #- TRANSLATOR_DAG_EXPORT_IMAGE_WIDTH=600
+      #
+      # ===== EMS server monitoring settings =====
+      - EMS_SYSMON_ENABLED=true
+      - EMS_SYSMON_PERIOD=1000
+      - EMS_SYSMON_COMMAND=./bin/sysmon.sh
+      #
+      # ===== EMS server file browsing =====
+      #- INFO_FILES_ENABLED=true
+      - INFO_FILES_ROOTS=/opt/ems-server/logs, /opt/ems-server/config, /opt/ems-server/public_resources/resources
+      - INFO_FILES_EXTENSIONS_BLOCKED=.pem, .p12, .sh
+      #
+      # ===== Broker-CEP settings =====
+      - BROKERCEP_ADDITIONAL_BROKER_CREDENTIALS=${P_BROKERCEP_CREDENTIALS:-}
+      - BROKERCEP_EVENT_RECORDER_ENABLED=false
+      - BROKERCEP_EVENT_RECORDER_FILTER_MODE=ALL
+      #
+      # ===== Baguette Server settings =====
+      #- BAGUETTE_SERVER_ADDRESS=${P_BAGUETTE_SERVER_ADDRESS}
+      - BAGUETTE_SERVER_CREDENTIALS=${P_BAGUETTE_SERVER_CREDENTIALS:-{}
+      #
+      #
+      # ==========================================================
+      # =====               NebulOus settings                =====
+      # ==========================================================
+      #
+      # =====  EMS Boot (server) settings  =====
+      - BOOT_ENABLED=false
+      #
+      # =====  EMS Boot Initializer (client) settings  =====
+      - BOOT_INITIALIZER_ENABLED=false
+      #
+      # ===== Kubernetes settings =====
+      - K8S_ENABLED=false
+      - K8S_WATCHER_ENABLED=false
+      - K8S_DEPLOY_EMS_CLIENTS_ON_KUBERNETES_ENABLED=false
+      #
+      # =====  External Broker settings  =====
+      - EXTERNAL_ENABLED=false
+      - EXTERNAL_BROKER_ADDRESS=activemq
+      - EXTERNAL_BROKER_PORT=5672
+      #- EXTERNAL_BROKER_USERNAME=
+      #- EXTERNAL_BROKER_PASSWORD=
+      #
+      - EXTERNAL_CONNECTION_INFO_COLLECTION_MODE=CONFIG
+      - EXTERNAL_BROKER_SERVICE_NAME=nebulous-activemq
+      - EXTERNAL_BROKER_SERVICE_NAMESPACE=nebulous-cd
+      #
+      # =====  Baguette Client Install settings  =====
+      #      - BAGUETTE_CLIENT_INSTALL_INSTRUCTIONS_LINUX=file:${EMS_CONFIG_DIR}/baguette-client-install/helm/app-detection.yml, file:${EMS_CONFIG_DIR}/baguette-client-install/helm/epm-deploy.yml, file:${EMS_CONFIG_DIR}/baguette-client-install/helm/netdata-deploy.yml
+      #      - BAGUETTE_CLIENT_INSTALL_INSTALLATION_CONTEXT_PROCESSOR_PLUGINS=eu.nebulous.ems.plugins.NebulousInstallationContextProcessorPlugin
+      #      # ===== EMS server at Application Cluster settings =====
+      #      #
+      #      # =====  EMS server K8sClientInstaller configuration  =====
+      #      - EMS_CLIENT_DEPLOYMENT_DRY_RUN=false
+      #      - K8S_SERVICE_ACCOUNT_SECRETS_PATH=/var/run/secrets/kubernetes.io/serviceaccount
+      #      - APP_CONFIG_MAP_NAME=monitoring-configmap
+      #      - EMS_CLIENT_CONFIG_MAP_NAME=ems-client-configmap
+      #      #- EMS_CLIENT_DAEMONSET_SPECIFICATION_FILE=/ems-client-daemonset.yaml
+      #      - EMS_CLIENT_DAEMONSET_NAME=ems-client-daemonset
+      #      - EMS_CLIENT_DAEMONSET_IMAGE_REPOSITORY=registry.gitlab.com/nebulous-project/ems-main/ems-client
+      #      - EMS_CLIENT_DAEMONSET_IMAGE_TAG=${EMS_IMAGE_TAG}${EMS_IMAGE_TAG_EXTRA:-}
+      #      - EMS_CLIENT_DAEMONSET_IMAGE_PULL_POLICY=Always
+      #      #
+      #      # =====  EMS clients - Security and Authentication settings  =====
+      - EMS_CLIENT_ADDITIONAL_BROKER_CREDENTIALS=${P_EMS_CLIENT_BROKERCEP_CREDENTIALS:-}
+      #      #- name: EMS_CLIENT_BROKER_USERNAME=ccc
+      #      #- name: EMS_CLIENT_BROKER_PASSWORD=333
+      #      - EMS_CLIENT_KEYSTORE_SECRET=
+      #      - EMS_CLIENT_TRUSTSTORE_SECRET=
+      #
+    ports:
+      - "2222:2222"
+      - "8111:8111"
+      - "61617:61617"
+      - "61616:61616"
+      - "61610:61610"
+    volumes:
+      #- ./config:/opt/ems-server/config
+      - ./logs:/opt/ems-server/logs
+      #- ./certs/ems:/opt/ems-server/certs
+      #- ./certs/webssh:/opt/ems-server/certs-webssh
+      - ./models:/opt/ems-server/models
+    networks:
+      upperware_net:
+        ipv4_address: 10.10.0.4
+
+  vm1:
+    container_name: "vm1"
+    image:  ubuntu-sshd:latest
+    build: ./ubuntu-sshd
+    # See: https://github.com/aoudiamoncef/ubuntu-sshd
+    #    working_dir: "/home/ubuntu/baguette-client"
+    restart: unless-stopped
+    environment:
+      - SSH_USERNAME=ubuntu
+      - PASSWORD=ubuntu
+      #- AUTHORIZED_KEYS=
+      #
+      # ----- App1 -----
+      - JAVA_HOME=/home/ubuntu/baguette-client/jre
+      - BROKER_SERVER=localhost
+      - BROKER_PORT=61616
+      - BROKER_USERNAME=aaa
+      - BROKER_PASSWORD=111
+      - TARGET_TOPIC=a__component_cpu__util__instance
+      - SEND_DELAY=10
+      - VALUE_MIN=0
+      - VALUE_MAX=100
+      #
+      # ----- App2 -----
+    volumes:
+      - ./app1:/app1
+      - ./app2:/app2
+    ports:
+      - "1022:22"
+      - "1016:61616"
+      - "1017:61617"
+      - "1099:19999"
+      # - "9000:9000"
+    networks:
+      upperware_net:
+        ipv4_address: 10.10.0.6
+
+  vm2:
+    container_name: "vm2"
+    image:  ubuntu-sshd:latest
+    build: ./ubuntu-sshd
+    # See: https://github.com/aoudiamoncef/ubuntu-sshd
+    #    working_dir: "/home/ubuntu/baguette-client"
+    restart: unless-stopped
+    environment:
+      - SSH_USERNAME=ubuntu
+      - PASSWORD=ubuntu
+      #- AUTHORIZED_KEYS=
+      #
+      # ----- App1 -----
+      # ----- App2 -----
+      # ----- App3 -----
+    volumes:
+      - ./app3:/app3
+    ports:
+      
+      - "1032:22"
+      - "1026:61616"
+      - "1027:61617"
+      - "1999:19999"
+      # - "9000:9000"
+    networks:
+      upperware_net:
+        ipv4_address: 10.10.0.7
+
+networks:
+  upperware_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.0.0/16

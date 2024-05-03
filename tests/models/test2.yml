@@ -1,0 +1,61 @@
+#
+# Copyright (C) 2023-2025 Institute of Communication and Computer Systems (imu.iccs.gr)
+#
+# This Source Code Form is subject to the terms of the Mozilla Public License, v2.0.
+# If a copy of the MPL was not distributed with this file, you can obtain one at
+# https://www.mozilla.org/en-US/MPL/2.0/
+#
+
+apiVersion: nebulous/v1
+kind: MetricModel
+metadata:
+  name: 'Sample Nebulous metric model'
+spec:
+  components:
+    - name: a_component
+      requirements:
+        - name: an_slo
+          type: slo
+          constraint: 'cpu_util_prct > 80'
+      metrics:
+        - name: cpu_util_prct
+          formula: 'mean( cpu_util_instance ) * my_sgn( mean( cpu_util_instance ) )'
+          grouping: per_zone
+          window: 'sliding 5 min'
+          output: 'all 30 sec'
+        - name: cpu_util_instance
+          busy-status: true
+          #sensor: 'netdata system.cpu'
+          sensor: 'netdata k8s.cgroup.cpu'
+#          sensor:
+#            type: netdata
+#            config:
+#              endpoint: /api/v2/data
+#              scope_contexts: k8s.cgroup.cpu
+#              dimensions: '*'
+#              after: -1
+#              group: average
+#              format: ssv
+#              chart_label_key: k8s_pod_name,k8s_namespace
+#              chart_labels_filter: k8s_pod_name:netdata-child-gm9wc,k8s_namespace:default
+          output: 'all 30 sec'
+
+        - name: response_time
+          busy-status: true
+          sensor:
+            type: prometheus
+            config:
+              metric: 'request_processing_seconds_sum'
+              port: 9000
+              endpoint: /
+              delay: 0                    # Initial delay
+              intervalPeriod: 30
+              intervalUnit: 'seconds'     # See 'Interval' enum for valid values
+  scopes:
+    - name: a_scope
+      components: [ 'a_component' ]
+
+functions:
+  - name: my_sgn
+    expression: 'abs( n ) / n'
+    arguments: [ n ]

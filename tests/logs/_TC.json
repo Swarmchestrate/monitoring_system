@@ -1,0 +1,204 @@
+{
+  "modelName": "test2",
+  "modelFileName": "test2.yml",
+  "E2A": {},
+  "SLO": [
+    "a_component.an_slo"
+  ],
+  "MON": [
+    {
+      "metric": "a__component_cpu__util__instance__SENSOR",
+      "component": "a_component",
+      "sensor": {
+        "className": "",
+        "interval": {
+          "unit": "SECONDS",
+          "period": 30,
+          "_objectClass": "gr.iccs.imu.ems.translate.model.Interval"
+        },
+        "configuration": {
+          "_containerName": "a_component",
+          "_netdata_metric": "k8s.cgroup.cpu",
+          "type": "netdata"
+        },
+        "isPush": false,
+        "name": "a__component_cpu__util__instance__SENSOR",
+        "_objectClass": "gr.iccs.imu.ems.translate.model.PullSensor"
+      },
+      "_objectClass": "gr.iccs.imu.ems.translate.model.Monitor"
+    },
+    {
+      "metric": "a__component_response__time__SENSOR",
+      "component": "a_component",
+      "sensor": {
+        "className": "",
+        "interval": {
+          "unit": "SECONDS",
+          "period": 30,
+          "_objectClass": "gr.iccs.imu.ems.translate.model.Interval"
+        },
+        "configuration": {
+          "_containerName": "a_component",
+          "metric": "request_processing_seconds_sum",
+          "port": 9000,
+          "endpoint": "/",
+          "delay": 0,
+          "intervalPeriod": 30,
+          "intervalUnit": "seconds",
+          "type": "prometheus"
+        },
+        "isPush": false,
+        "name": "a__component_response__time__SENSOR",
+        "_objectClass": "gr.iccs.imu.ems.translate.model.PullSensor"
+      },
+      "_objectClass": "gr.iccs.imu.ems.translate.model.Monitor"
+    }
+  ],
+  "MONS": [
+    "a__component_response__time__SENSOR",
+    "a__component_cpu__util__instance__SENSOR"
+  ],
+  "G2R": {
+    "PER_ZONE": {
+      "a__component_cpu__util__prct": [
+        "/* COMP-CTX-AGG-any */ /*INSERT INTO a__component_cpu__util__prct*/   \nSELECT EVALAGG( \u0027mean( cpu_util_instance ) * my_sgn( mean( cpu_util_instance ) )\u0027, \u0027cpu_util_instance\u0027, a__component_cpu__util__instance ) AS metricValue,\n       3 AS level,\n       current_timestamp AS timestamp  \nFROM a__component_cpu__util__instance.win:time(5 MINUTES) AS a__component_cpu__util__instance\nOUTPUT SNAPSHOT EVERY 30 SECONDS"
+      ]
+    },
+    "PER_INSTANCE": {
+      "a__component_cpu__util__instance": [
+        "/* RAW-CTX-PER_INSTANCE */ /*INSERT INTO a__component_cpu__util__instance*/\nSELECT * FROM a__component_cpu__util__instance__SENSOR OUTPUT ALL EVERY 30 SECONDS"
+      ],
+      "a__component_response__time": [
+        "/* RAW-CTX-PER_INSTANCE */ /*INSERT INTO a__component_response__time*/\nSELECT * FROM a__component_response__time__SENSOR "
+      ]
+    },
+    "GLOBAL": {
+      "a__component_an__slo__CONSTRAINT": [
+        "/* CONSTR-MET-any */ /*INSERT INTO a__component_an__slo__CONSTRAINT*/\nSELECT * FROM a__component_cpu__util__prct HAVING a__component_cpu__util__prct.metricValue \u003e 80.0"
+      ],
+      "busy_a__component_response__time": [
+        "/* BUSY-STATUS-VAR-any */ /*INSERT INTO busy_a__component_response__time*/\nSELECT * FROM a__component_response__time"
+      ],
+      "a__component_an__slo": [
+        "/* SLO-any */ /*INSERT INTO a__component_an__slo*/\nSELECT * FROM a__component_an__slo__CONSTRAINT"
+      ],
+      "busy_a__component_cpu__util__instance": [
+        "/* BUSY-STATUS-VAR-any */ /*INSERT INTO busy_a__component_cpu__util__instance*/\nSELECT * FROM a__component_cpu__util__instance"
+      ]
+    }
+  },
+  "G2T": {
+    "PER_ZONE": [
+      "a__component_cpu__util__instance",
+      "a__component_cpu__util__prct"
+    ],
+    "GLOBAL": [
+      "a__component_cpu__util__instance",
+      "a__component_an__slo__CONSTRAINT",
+      "a__component_an__slo",
+      "a__component_cpu__util__prct",
+      "busy_a__component_response__time",
+      "busy_a__component_cpu__util__instance",
+      "a__component_response__time"
+    ],
+    "PER_INSTANCE": [
+      "a__component_response__time__SENSOR",
+      "a__component_cpu__util__instance",
+      "a__component_cpu__util__instance__SENSOR",
+      "a__component_response__time"
+    ]
+  },
+  "CMVar": [],
+  "RMVar": [],
+  "MVV": [],
+  "MvvCP": {},
+  "FUNC": [
+    {
+      "name": "my_sgn",
+      "expression": "abs( n ) / n",
+      "arguments": [
+        "n"
+      ]
+    }
+  ],
+  "topicConnections": {
+    "PER_ZONE": {
+      "a__component_cpu__util__prct": [
+        "GLOBAL"
+      ]
+    },
+    "PER_INSTANCE": {
+      "a__component_cpu__util__instance": [
+        "PER_ZONE",
+        "GLOBAL"
+      ],
+      "a__component_response__time": [
+        "GLOBAL"
+      ]
+    }
+  },
+  "needsRefresh": false,
+  "metricConstraints": [
+    {
+      "comparisonOperator": "GREATER_THAN",
+      "threshold": 80.0,
+      "name": "a_component.an_slo_CONSTRAINT",
+      "_objectClass": "gr.iccs.imu.ems.translate.model.MetricConstraint"
+    }
+  ],
+  "logicalConstraints": [],
+  "ifThenConstraints": [],
+  "busyStatusDestinationToMetricContextNameMap": {
+    "busy.a_component.cpu_util_instance": "a_component.cpu_util_instance",
+    "busy.a_component.response_time": "a_component.response_time"
+  },
+  "busyStatusMetricsSet": [
+    "a_component.cpu_util_instance",
+    "a_component.response_time"
+  ],
+  "topLevelMetricNames": [
+    "a_component.an_slo",
+    "busy.a_component.response_time",
+    "response_time_METRIC",
+    "busy.a_component.cpu_util_instance"
+  ],
+  "constantsDefaults": {},
+  "exportFiles": [],
+  "fullNamePattern": "{ELEM}",
+  "additionalResults": {
+    "NEBULOUS_PREDICTION_SLO_METRIC_DECOMPOSITION_MAP": {
+      "constraints": [
+        {
+          "name": "a__component_an__slo__CONSTRAINT",
+          "operator": "\u003e",
+          "threshold": 80.0,
+          "metric": "a__component_cpu__util__prct"
+        }
+      ],
+      "version": 0,
+      "operator": "OR"
+    },
+    "NEBULOUS_PREDICTION_SLO_METRIC_DECOMPOSITION": "{\"constraints\":[{\"name\":\"a__component_an__slo__CONSTRAINT\",\"operator\":\"\u003e\",\"threshold\":80.0,\"metric\":\"a__component_cpu__util__prct\"}],\"version\":0,\"operator\":\"OR\"}",
+    "NEBULOUS_PREDICTION_TOP_LEVEL_NODES_METRICS_MAP": {
+      "metric_list": [
+        {
+          "lower_bound": "-Infinity",
+          "name": "a__component_response__time",
+          "upper_bound": "Infinity"
+        },
+        {
+          "lower_bound": "-Infinity",
+          "name": "a__component_cpu__util__prct",
+          "upper_bound": "Infinity"
+        },
+        {
+          "lower_bound": "-Infinity",
+          "name": "a__component_cpu__util__instance",
+          "upper_bound": "Infinity"
+        }
+      ],
+      "version": 0
+    },
+    "NEBULOUS_PREDICTION_TOP_LEVEL_NODES_METRICS": "{\"metric_list\":[{\"lower_bound\":\"-Infinity\",\"name\":\"a__component_response__time\",\"upper_bound\":\"Infinity\"},{\"lower_bound\":\"-Infinity\",\"name\":\"a__component_cpu__util__prct\",\"upper_bound\":\"Infinity\"},{\"lower_bound\":\"-Infinity\",\"name\":\"a__component_cpu__util__instance\",\"upper_bound\":\"Infinity\"}],\"version\":0}"
+  }
+}

@@ -1,0 +1,565 @@
+2024-05-03T15:07:24.307Z  INFO 30 --- [main] o.s.boot.SpringApplication               : 
+
+[38;5;51m ███████╗███╗   ███╗███████╗     ██████╗ ██████╗ ███╗   ██╗████████╗██████╗  ██████╗ ██╗
+[38;5;51m ██╔════╝████╗ ████║██╔════╝    ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔══██╗██╔═══██╗██║
+[38;5;51m █████╗  ██╔████╔██║███████╗    ██║     ██║   ██║██╔██╗ ██║   ██║   ██████╔╝██║   ██║██║
+[38;5;12m ██╔══╝  ██║╚██╔╝██║╚════██║    ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══██╗██║   ██║██║
+[38;5;12m ███████╗██║ ╚═╝ ██║███████║    ╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║╚██████╔╝███████╗
+[38;5;12m ╚══════╝╚═╝     ╚═╝╚══════╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+
+[38;5;46m :: EMS Control :: [38;5;87m                       (7.0.0-SNAPSHOT)
+[38;5;46m :: Spring Boot :: [38;5;87m                       (v3.2.4)
+[38;5;46m :: Java (TM)   :: [38;5;87m                       (21.0.1)
+[38;5;46m :: Build Num.  :: [38;5;226m7.0.0-SNAPSHOT
+[38;5;46m :: Build Date  :: [38;5;226m2024-04-23 14:13:01.328+0000
+[38;5;46m :: SCM Branch  :: [38;5;226m@git.branch@,   at Repos.: @git.remote.origin.url@
+[38;5;46m :: Image Tag   :: [38;5;226mems-server:@docker.image.tag@
+[38;5;46m :: Description :: [38;5;226m@build.description@ [39m[0m
+
+2024-05-03T15:07:24.372Z  INFO 30 --- [main] g.i.imu.ems.util.NetUtilPostProcessor    : NetUtilPostProcessor:  NetUtilPropertySource registered (deferred log)
+2024-05-03T15:07:24.378Z  INFO 30 --- [main] g.i.i.e.c.ControlServiceApplication      : Starting ControlServiceApplication using Java 21.0.1 with PID 30 (/opt/ems-server/BOOT-INF/classes started by emsuser in /opt/ems-server)
+2024-05-03T15:07:24.379Z  INFO 30 --- [main] g.i.i.e.c.ControlServiceApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-05-03T15:07:25.295Z  INFO 30 --- [main] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-05-03T15:07:25.301Z  INFO 30 --- [main] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-05-03T15:07:25.610Z  WARN 30 --- [main] gr.iccs.imu.ems.util.NetUtil             : NetUtil.getPublicIpAddress(): No Public IP address or connectivity problems exist
+2024-05-03T15:07:25.687Z  INFO 30 --- [main] gr.iccs.imu.ems.util.PasswordUtil        : PasswordUtil: Initialized default Password Encoder: gr.iccs.imu.ems.util.password.AsterisksPasswordEncoder
+2024-05-03T15:07:26.282Z  INFO 30 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8111 (https)
+2024-05-03T15:07:26.291Z  INFO 30 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-03T15:07:26.292Z  INFO 30 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-05-03T15:07:26.325Z  INFO 30 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-03T15:07:26.326Z  INFO 30 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1741 ms
+2024-05-03T15:07:26.549Z  INFO 30 --- [main] g.i.i.e.b.c.s.SelfHealingManagerImpl     : Self-Healing Manager initialized
+2024-05-03T15:07:26.549Z  INFO 30 --- [main] g.i.i.e.b.c.s.SelfHealingManagerImpl     : Recovery context: RecoveryContext(variablesMap={BAGUETTE_CLIENT_BASE_DIR=~/baguette-client})
+2024-05-03T15:07:26.599Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer: Generated new username/password: username=user-6564d65f-32b5-4fba-9889-003433cdb6d7, password=********
+2024-05-03T15:07:26.847Z  INFO 30 --- [main] e.n.ems.translate.NebulousEmsTranslator  : NebulousEmsTranslator: initialized
+2024-05-03T15:07:27.109Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Loaded the Bouncy Castle security provider at position: -1
+2024-05-03T15:07:27.204Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Using Persistence Adapter: MemoryPersistenceAdapter
+2024-05-03T15:07:27.207Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Starting Persistence Adapter: MemoryPersistenceAdapter
+2024-05-03T15:07:27.207Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Starting Temp Data Store
+2024-05-03T15:07:27.207Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Starting Job Scheduler Store
+2024-05-03T15:07:27.207Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Persistence Adapter successfully started
+2024-05-03T15:07:27.331Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Apache ActiveMQ 6.0.1 (broker, ID:cee802c20164-38595-1714748847215-0:1) is starting
+2024-05-03T15:07:27.336Z  INFO 30 --- [main] o.a.a.t.TransportServerThreadSupport     : Listening for connections at: ssl://cee802c20164:61617?transport.daemon=true&transport.trace=false&transport.useKeepAlive=true&transport.useInactivityMonitor=false&transport.needClientAuth=false&transport.verifyHostName=true&transport.connectionTimeout=0&transport.keepAlive=true
+2024-05-03T15:07:27.336Z  INFO 30 --- [main] o.a.activemq.broker.TransportConnector   : Connector ssl://cee802c20164:61617?transport.daemon=true&transport.trace=false&transport.useKeepAlive=true&transport.useInactivityMonitor=false&transport.needClientAuth=false&transport.verifyHostName=true&transport.connectionTimeout=0&transport.keepAlive=true started
+2024-05-03T15:07:27.337Z  INFO 30 --- [main] o.a.a.t.TransportServerThreadSupport     : Listening for connections at: tcp://cee802c20164:61616?transport.daemon=true&transport.trace=false&transport.useKeepAlive=true&transport.useInactivityMonitor=false&transport.needClientAuth=false&transport.verifyHostName=true&transport.connectionTimeout=0&transport.keepAlive=true
+2024-05-03T15:07:27.337Z  INFO 30 --- [main] o.a.activemq.broker.TransportConnector   : Connector tcp://cee802c20164:61616?transport.daemon=true&transport.trace=false&transport.useKeepAlive=true&transport.useInactivityMonitor=false&transport.needClientAuth=false&transport.verifyHostName=true&transport.connectionTimeout=0&transport.keepAlive=true started
+2024-05-03T15:07:27.338Z  INFO 30 --- [main] o.a.a.t.TransportServerThreadSupport     : Listening for connections at: stomp://cee802c20164:61610
+2024-05-03T15:07:27.338Z  INFO 30 --- [main] o.a.activemq.broker.TransportConnector   : Connector stomp://cee802c20164:61610 started
+2024-05-03T15:07:27.338Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Apache ActiveMQ 6.0.1 (broker, ID:cee802c20164-38595-1714748847215-0:1) started
+2024-05-03T15:07:27.338Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : For help or more information please see: http://activemq.apache.org
+2024-05-03T15:07:27.348Z  INFO 30 --- [Thread-5] .i.i.e.b.b.i.MessageForwarderInterceptor : MessageQueueProcessor: Starts processing message queue and forward messages
+2024-05-03T15:07:27.386Z  INFO 30 --- [main] c.e.e.c.service.EPServiceProviderImpl    : Initializing engine URI 'default' version 7.1.0
+2024-05-03T15:07:27.627Z  INFO 30 --- [main] eu.nebulous.ems.EmsNebulousProperties    : EmsNebulousProperties(applicationId=null, appId=null, appUid=null, appUuid=null, emsServerPodUid=null, emsServerPodNamespace=null, appPodLabel=app)
+2024-05-03T15:07:27.630Z  INFO 30 --- [main] EmsClientDeploymentPostTranslationPlugin : K8sEmsClientDeploymentPostTranslationPlugin: Application Id (from Env.): null
+2024-05-03T15:07:27.644Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.initTranslator(): Effective translator: eu.nebulous.ems.translate.NebulousEmsTranslator
+2024-05-03T15:07:27.645Z  INFO 30 --- [main] eu.nebulous.ems.service.MvvService       : MvvService: initialized
+2024-05-03T15:07:27.645Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.startServer(): Starting SSH server...
+2024-05-03T15:07:27.647Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : ** SSH server **
+2024-05-03T15:07:27.648Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Public IP address: 10.10.0.4
+2024-05-03T15:07:27.648Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server:  Starting on port: 2222
+2024-05-03T15:07:27.648Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server:   Server key file: /opt/ems-server/config/hostkey.pem
+2024-05-03T15:07:27.684Z  INFO 30 --- [main] s.c.u.s.e.EdDSASecurityProviderRegistrar : getOrCreateProvider(EdDSA) created instance of net.i2p.crypto.eddsa.EdDSASecurityProvider
+2024-05-03T15:07:27.745Z  INFO 30 --- [main] o.a.s.s.k.SimpleGeneratorHostKeyProvider : generateKeyPair(EC) generating host key=nistp521
+2024-05-03T15:07:27.817Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Ready
+2024-05-03T15:07:27.818Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.startServer(): Starting SSH server... done
+2024-05-03T15:07:27.818Z  INFO 30 --- [Thread-7] gr.iccs.imu.ems.baguette.server.Sshd     : --> Heartbeat: Started: period=60000ms
+2024-05-03T15:07:27.841Z  INFO 30 --- [main] g.iccs.imu.ems.control.util.TopicBeacon  : Topic Beacon started: init-delay=10000ms, delay=10000ms
+2024-05-03T15:07:27.847Z  INFO 30 --- [main] g.i.imu.ems.common.plugin.PluginManager  : PluginManager: Started
+2024-05-03T15:07:27.922Z  INFO 30 --- [main] g.iccs.imu.ems.brokercep.EventForwarder  : EventForwarder: Starting event publish/forward worker
+2024-05-03T15:07:27.936Z  WARN 30 --- [main] g.i.i.e.control.info.BuildInfoProvider   : Error while collecting info from file: classpath:/git.properties -- Exception: java.io.FileNotFoundException: class path resource [git.properties] cannot be opened because it does not exist
+2024-05-03T15:07:27.965Z  INFO 30 --- [main] g.i.i.e.c.misc.SystemResourceMonitor     : SystemResourceMonitor started
+2024-05-03T15:07:28.007Z  INFO 30 --- [main] .c.i.ControlServiceInfoEndpointExtension : Info endpoint is enabled and exposed. Added EMS info extension.
+2024-05-03T15:07:28.016Z  INFO 30 --- [main] g.i.i.e.c.c.AbstractEndpointCollector    : Collectors::ServerNetdataCollector: New Allowed Topics: null -- Topics Map: null
+2024-05-03T15:07:28.089Z  INFO 30 --- [main] eu.nebulous.ems.k8s.K8sPodWatcher        : K8sPodWatcher: Disabled  (to enable set 'k8s-watcher.enable' property or K8S_WATCHER_ENABLED env. var. to true)
+2024-05-03T15:07:28.093Z  INFO 30 --- [main] eu.nebulous.ems.boot.EmsBootProperties   : EmsBootProperties(enabled=false, processorPeriod=500, applicationIdPropertyName=application, modelsDir=models, modelsIndexFile=models/index.json, dslTopic=eu.nebulouscloud.ui.dsl.generic, modelsTopic=eu.nebulouscloud.ui.dsl.metric_model, modelsResponseTopic=eu.nebulouscloud.ui.dsl.metric_model.reply, emsBootTopic=eu.nebulouscloud.ems.boot, emsBootResponseTopic=eu.nebulouscloud.ems.boot.reply)
+2024-05-03T15:07:28.096Z  INFO 30 --- [main] eu.nebulous.ems.boot.ModelsService       : ModelsService is disabled because EMS Boot is disabled
+2024-05-03T15:07:28.097Z  INFO 30 --- [main] e.n.ems.boot.NebulousEventsService       : EMS Boot is disabled
+2024-05-03T15:07:28.098Z  INFO 30 --- [main] e.n.e.s.EmsBootInitializerProperties     : EmsBootInitializerProperties(enabled=false, initialWait=PT1S, retryPeriod=PT30S)
+2024-05-03T15:07:28.101Z  INFO 30 --- [main] e.n.e.s.ExternalBrokerListenerService    : ExternalBrokerListenerService: Disabled due to configuration
+2024-05-03T15:07:28.379Z  INFO 30 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2024-05-03T15:07:28.409Z  INFO 30 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5813046e, org.springframework.security.web.session.ForceEagerSessionCreationFilter@6b1e72a4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5da61ee2, org.springframework.security.web.context.SecurityContextHolderFilter@4191774f, org.springframework.security.web.header.HeaderWriterFilter@7f3616d2, org.springframework.web.filter.CorsFilter@1c0455c4, org.springframework.security.web.authentication.logout.LogoutFilter@6a5ed5f9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5d8319a7, gr.iccs.imu.ems.control.webconf.WebSecurityConfig$$Lambda/0x0000000601a83708@5c74025e, gr.iccs.imu.ems.control.webconf.WebSecurityConfig$$Lambda/0x0000000601a83948@4467c026, gr.iccs.imu.ems.control.webconf.WebSecurityConfig$$Lambda/0x0000000601a83b88@29db9746, gr.iccs.imu.ems.control.webconf.WebSecurityConfig$$Lambda/0x0000000601a88000@17cf5dcc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@76bfecef, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@661ec798, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6bd5cb99, org.springframework.security.web.session.SessionManagementFilter@6212dc7d, org.springframework.security.web.access.ExceptionTranslationFilter@4dba2d07, org.springframework.security.web.access.intercept.AuthorizationFilter@17f43f4a]
+2024-05-03T15:07:28.472Z  WARN 30 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2024-05-03T15:07:28.604Z  WARN 30 --- [main] .b.a.g.t.GroovyTemplateAutoConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Groovy configuration, or set spring.groovy.template.check-template-location=false)
+2024-05-03T15:07:28.858Z  INFO 30 --- [main] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-05-03T15:07:28.859Z  INFO 30 --- [main] o.s.i.channel.PublishSubscribeChannel    : Channel 'application.errorChannel' has 1 subscriber(s).
+2024-05-03T15:07:28.859Z  INFO 30 --- [main] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-05-03T15:07:28.897Z  INFO 30 --- [main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-8111], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [/opt/ems-server/.keystore] using alias [ems] with trust store [null]
+2024-05-03T15:07:28.901Z  INFO 30 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8111 (https) with context path ''
+2024-05-03T15:07:28.903Z  INFO 30 --- [main] i.i.e.b.c.i.h.AbstractInstallationHelper : Server PEM certificate stored in file: /opt/ems-server/config/server.pem
+2024-05-03T15:07:28.903Z  INFO 30 --- [main] i.i.e.b.c.i.h.AbstractInstallationHelper : Server PEM certificate stored in file: /opt/ems-server/config/server.pem
+2024-05-03T15:07:28.915Z  INFO 30 --- [main] g.i.i.e.c.ControlServiceApplication      : Started ControlServiceApplication in 4.814 seconds (process running for 5.238)
+2024-05-03T15:07:28.923Z  WARN 30 --- [main] e.n.ems.service.EmsBootInitializer       : ===================> EMS is ready -- Application Id is blank. EMS Boot disabled
+2024-05-03T15:07:28.928Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.applicationReady(): IP setting: DEFAULT_IP
+2024-05-03T15:07:28.928Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ===================================================================================================
+2024-05-03T15:07:28.929Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.preloadModels(): Preloading models: app-model=test2.yml, app-exec-model=
+2024-05-03T15:07:28.929Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): BEGIN: app-model-id=test2.yml, app-exec-model-id=, request-info=ControlServiceRequestInfo(notificationUri=null, requestUuid=null, applicationId=null, callback=null)
+2024-05-03T15:07:28.930Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.translateAppModelAndStore(): Model translation: model-id=test2.yml
+2024-05-03T15:07:28.930Z  INFO 30 --- [main] e.n.ems.translate.NebulousEmsTranslator  : NebulousEmsTranslator: Parsing metric model file: test2.yml
+2024-05-03T15:07:28.936Z  INFO 30 --- [main] e.n.ems.translate.NebulousEmsTranslator  : NebulousEmsTranslator: Translating metric model: test2.yml
+2024-05-03T15:07:29.234Z  INFO 30 --- [main] e.n.e.t.analyze.MetricModelValidator     : MetricModelValidator:  Metric model is valid: test2
+2024-05-03T15:07:29.414Z  INFO 30 --- [main] e.n.ems.translate.NebulousEmsTranslator  : NebulousEmsTranslator: Translating metric model completed: test2.yml
+2024-05-03T15:07:29.417Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.translateAppModelAndStore(): Running 4 post-translation plugins
+2024-05-03T15:07:29.417Z  INFO 30 --- [main] e.n.e.s.ExternalBrokerPublisherService   : ExternalBrokerPublisherService: Disabled due to configuration
+2024-05-03T15:07:29.417Z  INFO 30 --- [main] EmsClientDeploymentPostTranslationPlugin : K8sEmsClientDeploymentPostTranslationPlugin: Set applicationId to: null  -- was: null
+2024-05-03T15:07:29.418Z  INFO 30 --- [main] EmsClientDeploymentPostTranslationPlugin : K8sEmsClientDeploymentPostTranslationPlugin: EMS clients deployment is disabled
+2024-05-03T15:07:29.419Z  WARN 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.translateAppModelAndStore(): The specified Translation Context file already exists. Its contents will be overwritten: tc-file-pattern=/opt/ems-server/logs/_TC.json, tc-file=/opt/ems-server/logs/_TC.json
+2024-05-03T15:07:29.433Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.translateAppModelAndStore(): Saved translation data in file: /opt/ems-server/logs/_TC.json
+2024-05-03T15:07:29.433Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Running 1 TranslationContext plugins
+2024-05-03T15:07:29.434Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.437Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : ****      T R A N S L A T I O N   R E S U L T S      ****
+2024-05-03T15:07:29.437Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.437Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Model Name: test2
+2024-05-03T15:07:29.438Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.438Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Event-to-Action map:
+{}
+2024-05-03T15:07:29.438Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.438Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : SLO set:
+[a_component.an_slo]
+2024-05-03T15:07:29.438Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.439Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Component-to-Sensor map:
+{Component::a_component=[PullSensor::a__component_cpu__util__instance__SENSOR, PullSensor::a__component_response__time__SENSOR]}
+2024-05-03T15:07:29.439Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.439Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Data-to-Sensor map:
+{}
+2024-05-03T15:07:29.439Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.440Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Monitors:
+ [a__component_response__time__SENSOR, a__component_cpu__util__instance__SENSOR]
+2024-05-03T15:07:29.440Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.441Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Grouping-to-EPL Rules map:
+-----------------------
+PER_INSTANCE: 
+  a__component_cpu__util__instance: 
+    - /* RAW-CTX-PER_INSTANCE */ /*INSERT INTO a__component_cpu__util__instance*/
+      SELECT * FROM a__component_cpu__util__instance__SENSOR OUTPUT ALL EVERY 30 SECONDS
+  a__component_response__time: 
+    - /* RAW-CTX-PER_INSTANCE */ /*INSERT INTO a__component_response__time*/
+      SELECT * FROM a__component_response__time__SENSOR 
+-----------------------
+PER_ZONE: 
+  a__component_cpu__util__prct: 
+    - /* COMP-CTX-AGG-any */ /*INSERT INTO a__component_cpu__util__prct*/   
+      SELECT EVALAGG( 'mean( cpu_util_instance ) * my_sgn( mean( cpu_util_instance ) )', 'cpu_util_instance', a__component_cpu__util__instance ) AS metricValue,
+             3 AS level,
+             current_timestamp AS timestamp  
+      FROM a__component_cpu__util__instance.win:time(5 MINUTES) AS a__component_cpu__util__instance
+      OUTPUT SNAPSHOT EVERY 30 SECONDS
+-----------------------
+GLOBAL: 
+  a__component_an__slo: 
+    - /* SLO-any */ /*INSERT INTO a__component_an__slo*/
+      SELECT * FROM a__component_an__slo__CONSTRAINT
+  a__component_an__slo__CONSTRAINT: 
+    - /* CONSTR-MET-any */ /*INSERT INTO a__component_an__slo__CONSTRAINT*/
+      SELECT * FROM a__component_cpu__util__prct HAVING a__component_cpu__util__prct.metricValue > 80.0
+  busy_a__component_cpu__util__instance: 
+    - /* BUSY-STATUS-VAR-any */ /*INSERT INTO busy_a__component_cpu__util__instance*/
+      SELECT * FROM a__component_cpu__util__instance
+  busy_a__component_response__time: 
+    - /* BUSY-STATUS-VAR-any */ /*INSERT INTO busy_a__component_response__time*/
+      SELECT * FROM a__component_response__time
+
+2024-05-03T15:07:29.441Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.442Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Grouping-to-Topics map:
+  PER_INSTANCE: 
+    - a__component_response__time__SENSOR
+    - a__component_cpu__util__instance
+    - a__component_cpu__util__instance__SENSOR
+    - a__component_response__time
+  PER_ZONE: 
+    - a__component_cpu__util__instance
+    - a__component_cpu__util__prct
+  GLOBAL: 
+    - a__component_cpu__util__instance
+    - a__component_an__slo__CONSTRAINT
+    - a__component_an__slo
+    - a__component_cpu__util__prct
+    - busy_a__component_response__time
+    - busy_a__component_cpu__util__instance
+    - a__component_response__time
+2024-05-03T15:07:29.442Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.442Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Topics-Connections map:
+  PER_INSTANCE: 
+    a__component_cpu__util__instance: [PER_ZONE, GLOBAL]
+    a__component_response__time: [GLOBAL]
+  PER_ZONE: 
+    a__component_cpu__util__prct: [GLOBAL]
+2024-05-03T15:07:29.443Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.443Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : MVV set:
+[]
+2024-05-03T15:07:29.443Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.443Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : MVV_CP map:
+{}
+2024-05-03T15:07:29.443Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.443Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : CMVAR set:
+[]
+2024-05-03T15:07:29.444Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.444Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : RMVAR set:
+[]
+2024-05-03T15:07:29.444Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.445Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Function Definitions set:
+[my_sgn]
+2024-05-03T15:07:29.445Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.445Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Metric Constraints:
+[MetricConstraint(super=UnaryConstraint(super=Constraint(super=NamedElement(super=AbstractRootObject(_objectClass=gr.iccs.imu.ems.translate.model.MetricConstraint, object=null, container=null), name=a_component.an_slo_CONSTRAINT, description=null, annotations=null)), validity=null, comparisonOperator=GREATER_THAN, threshold=80.0), metricContext=null)]
+2024-05-03T15:07:29.446Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.447Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Busy-Status Destination-to-Metric Context names map:
+{busy.a_component.cpu_util_instance=a_component.cpu_util_instance, busy.a_component.response_time=a_component.response_time}
+2024-05-03T15:07:29.447Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.447Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Busy-Status Metrics:
+[a_component.cpu_util_instance, a_component.response_time]
+2024-05-03T15:07:29.447Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.448Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Top-Level Metric names:
+[a_component.an_slo, busy.a_component.response_time, response_time_METRIC, busy.a_component.cpu_util_instance]
+2024-05-03T15:07:29.448Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.448Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.449Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Additional Results:
+{NEBULOUS_PREDICTION_SLO_METRIC_DECOMPOSITION_MAP={name=null, constraints=[{threshold=80.0, metric=a__component_cpu__util__prct, name=a__component_an__slo__CONSTRAINT, operator=>}], version=0, operator=OR}, NEBULOUS_PREDICTION_SLO_METRIC_DECOMPOSITION={"constraints":[{"threshold":80.0,"metric":"a__component_cpu__util__prct","name":"a__component_an__slo__CONSTRAINT","operator":">"}],"version":0,"operator":"OR"}, NEBULOUS_PREDICTION_TOP_LEVEL_NODES_METRICS_MAP={metric_list=[{lower_bound=-Infinity, name=a__component_response__time, upper_bound=Infinity}, {lower_bound=-Infinity, name=a__component_cpu__util__instance, upper_bound=Infinity}, {lower_bound=-Infinity, name=a__component_cpu__util__prct, upper_bound=Infinity}], name=null, version=0}, NEBULOUS_PREDICTION_TOP_LEVEL_NODES_METRICS={"metric_list":[{"lower_bound":"-Infinity","name":"a__component_response__time","upper_bound":"Infinity"},{"lower_bound":"-Infinity","name":"a__component_cpu__util__instance","upper_bound":"Infinity"},{"lower_bound":"-Infinity","name":"a__component_cpu__util__prct","upper_bound":"Infinity"}],"version":0}}
+2024-05-03T15:07:29.449Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.450Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Export files:
+[]
+2024-05-03T15:07:29.450Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:07:29.451Z  WARN 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Skipping MVV retrieval due to configuration
+2024-05-03T15:07:29.451Z  INFO 30 --- [main] g.iccs.imu.ems.brokercep.cep.CepService  : CepService: Clear registered Statements
+2024-05-03T15:07:29.451Z  INFO 30 --- [main] g.iccs.imu.ems.brokercep.cep.CepService  : CepService: Clear registered Event Types
+2024-05-03T15:07:29.459Z  INFO 30 --- [main] g.i.imu.ems.brokercep.BrokerCepService   : BrokerCepService.addEventTypes(): Adding event types: [a__component_cpu__util__instance, a__component_an__slo__CONSTRAINT, a__component_an__slo, a__component_cpu__util__prct, busy_a__component_response__time, busy_a__component_cpu__util__instance, a__component_response__time]
+2024-05-03T15:07:29.480Z  INFO 30 --- [main] g.i.imu.ems.brokercep.BrokerCepService   : BrokerCepService.setConstants(): Add/Set constants: {}
+2024-05-03T15:07:29.481Z  INFO 30 --- [main] g.i.imu.ems.brokercep.BrokerCepService   : BrokerCepService.addFunctionDefinitions(): Adding function definitions: [FunctionDefinition(name=my_sgn, expression=abs( n ) / n, arguments=[n])]
+2024-05-03T15:07:29.481Z  INFO 30 --- [main] g.i.imu.ems.brokercep.BrokerCepService   : BrokerCepService.addFunction(): New function definition registered: FunctionDefinition(name=my_sgn, expression=abs( n ) / n, arguments=[n])
+2024-05-03T15:07:29.774Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.setServerConfiguration(): stopping SSH server...
+2024-05-03T15:07:29.776Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Stopping SSH server...
+2024-05-03T15:07:29.781Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Stopped
+2024-05-03T15:07:29.781Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.setServerConfiguration(): stopping SSH server... done
+2024-05-03T15:07:29.783Z  INFO 30 --- [main] g.i.i.e.b.s.c.c.ClusteringCoordinator    : Cluster Detector class: gr.iccs.imu.ems.baguette.server.coordinator.cluster.ClusterZoneDetector
+2024-05-03T15:07:29.784Z  INFO 30 --- [main] g.i.i.e.b.s.c.c.ClusteringCoordinator    : ClusteringCoordinator.initialize(): Groupings: top-level=GLOBAL, aggregator=PER_ZONE, last-level=PER_INSTANCE
+2024-05-03T15:07:29.785Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.startServer(): Starting SSH server...
+2024-05-03T15:07:29.785Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : ** SSH server **
+2024-05-03T15:07:29.786Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Public IP address: 10.10.0.4
+2024-05-03T15:07:29.786Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server:  Starting on port: 2222
+2024-05-03T15:07:29.786Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server:   Server key file: /opt/ems-server/config/hostkey.pem
+2024-05-03T15:07:29.793Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Ready
+2024-05-03T15:07:29.793Z  INFO 30 --- [main] g.i.i.e.b.s.coordinator.NoopCoordinator  : ClusteringCoordinator: start(): Invoking callback
+2024-05-03T15:07:29.793Z  INFO 30 --- [Thread-8] gr.iccs.imu.ems.baguette.server.Sshd     : --> Heartbeat: Started: period=60000ms
+2024-05-03T15:07:29.793Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : ****************************************
+2024-05-03T15:07:29.794Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : ****  MONITORING TOPOLOGY IS READY  ****
+2024-05-03T15:07:29.794Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : ****************************************
+2024-05-03T15:07:29.794Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.startServer(): Starting SSH server... done
+2024-05-03T15:07:29.795Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.startNetdataCollector(): NetdataCollector is not needed (will not start it): app-model-id=test2.yml
+2024-05-03T15:07:29.798Z  WARN 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Skipping MetaSolver setup due to configuration
+2024-05-03T15:07:29.798Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Cache translation results: app-model-id=test2.yml
+2024-05-03T15:07:29.798Z  WARN 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Skipping notification due to configuration
+2024-05-03T15:07:29.799Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): END: app-model-id=test2.yml
+2024-05-03T15:07:29.852Z  INFO 30 --- [main] g.i.i.e.c.webconf.WebSecurityConfig      : afterPropertiesSet:
+--------------------------------------------------------------------------------
+Sample JWT Token: 
+Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVU0VSIiwiYXVkIjpbIlVQUEVSV0FSRSJdLCJleHAiOjE3MTQ4MzUyNDl9.vfR5gN-ceV_f1U5sC25dyuDLDYYfW3RL5gKevZkEkvI
+--------------------------------------------------------------------------------
+2024-05-03T15:07:29.853Z  INFO 30 --- [main] g.i.i.e.c.ControlServiceApplication      : EMS server initialized in 5812ms
+2024-05-03T15:07:37.848Z  INFO 30 --- [scheduling-1] g.iccs.imu.ems.control.util.TopicBeacon  : Topic Beacon: updateModelVersion: Model changed:  -> /test2.yml, version: 1
+2024-05-03T15:07:37.892Z  INFO 30 --- [Thread-5] .i.i.e.b.b.i.MessageForwarderInterceptor : MessageQueueProcessor: Forward destinations initialized: []
+2024-05-03T15:08:27.824Z  INFO 30 --- [Thread-7] gr.iccs.imu.ems.baguette.server.Sshd     : --> Heartbeat: Stopped
+2024-05-03T15:11:02.928Z  INFO 30 --- [SpringApplicationShutdownHook] g.i.imu.ems.brokercep.BrokerCepConsumer  : BrokerCepConsumer is shutting down
+2024-05-03T15:11:02.930Z  INFO 30 --- [SpringApplicationShutdownHook] g.i.i.e.b.broker.BrokerAdvisoryWatcher   : BrokerAdvisoryWatcher is shutting down
+2024-05-03T15:11:02.963Z  INFO 30 --- [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-05-03T15:11:02.964Z  INFO 30 --- [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'application.errorChannel' has 0 subscriber(s).
+2024-05-03T15:11:02.964Z  INFO 30 --- [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-05-03T15:11:02.977Z  INFO 30 --- [SpringApplicationShutdownHook] o.apache.activemq.broker.BrokerService   : Apache ActiveMQ 6.0.1 (broker, ID:cee802c20164-38595-1714748847215-0:1) is shutting down
+2024-05-03T15:11:02.979Z  INFO 30 --- [SpringApplicationShutdownHook] o.a.activemq.broker.TransportConnector   : Connector ssl://cee802c20164:61617?transport.daemon=true&transport.trace=false&transport.useKeepAlive=true&transport.useInactivityMonitor=false&transport.needClientAuth=false&transport.verifyHostName=true&transport.connectionTimeout=0&transport.keepAlive=true stopped
+2024-05-03T15:11:02.987Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@47268] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:1,clientId=ID:cee802c20164-38595-1714748847215-3:1,started=false} on IOException: null
+2024-05-03T15:11:02.988Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@47304] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:3,clientId=ID:cee802c20164-38595-1714748847215-3:3,started=false} on IOException: null
+2024-05-03T15:11:02.989Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@52866] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:4,clientId=ID:cee802c20164-38595-1714748847215-3:4,started=false} on IOException: null
+2024-05-03T15:11:02.990Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@52872] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:5,clientId=ID:cee802c20164-38595-1714748847215-3:5,started=false} on IOException: null
+2024-05-03T15:11:02.991Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@52886] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:6,clientId=ID:cee802c20164-38595-1714748847215-3:6,started=false} on IOException: null
+2024-05-03T15:11:02.992Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@35808] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:7,clientId=ID:cee802c20164-38595-1714748847215-3:7,started=false} on IOException: null
+2024-05-03T15:11:02.993Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@35810] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:8,clientId=ID:cee802c20164-38595-1714748847215-3:8,started=false} on IOException: null
+2024-05-03T15:11:02.996Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@35826] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:9,clientId=ID:cee802c20164-38595-1714748847215-3:9,started=false} on IOException: null
+2024-05-03T15:11:02.998Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@33724] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:10,clientId=ID:cee802c20164-38595-1714748847215-3:10,started=false} on IOException: null
+2024-05-03T15:11:03.001Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@33730] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:11,clientId=ID:cee802c20164-38595-1714748847215-3:11,started=false} on IOException: null
+2024-05-03T15:11:03.001Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@33736] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:12,clientId=ID:cee802c20164-38595-1714748847215-3:12,started=false} on IOException: null
+2024-05-03T15:11:03.003Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@33392] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:13,clientId=ID:cee802c20164-38595-1714748847215-3:13,started=false} on IOException: null
+2024-05-03T15:11:03.004Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@33404] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:14,clientId=ID:cee802c20164-38595-1714748847215-3:14,started=false} on IOException: null
+2024-05-03T15:11:03.005Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@33408] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:15,clientId=ID:cee802c20164-38595-1714748847215-3:15,started=false} on IOException: null
+2024-05-03T15:11:03.006Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@60436] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:16,clientId=ID:cee802c20164-38595-1714748847215-3:16,started=false} on IOException: null
+2024-05-03T15:11:03.007Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@60438] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:17,clientId=ID:cee802c20164-38595-1714748847215-3:17,started=false} on IOException: null
+2024-05-03T15:11:03.009Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@60442] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:18,clientId=ID:cee802c20164-38595-1714748847215-3:18,started=false} on IOException: null
+2024-05-03T15:11:03.009Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@42756] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:19,clientId=ID:cee802c20164-38595-1714748847215-3:19,started=false} on IOException: null
+2024-05-03T15:11:03.011Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@42762] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:20,clientId=ID:cee802c20164-38595-1714748847215-3:20,started=false} on IOException: null
+2024-05-03T15:11:03.012Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@42778] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:21,clientId=ID:cee802c20164-38595-1714748847215-3:21,started=false} on IOException: null
+2024-05-03T15:11:03.013Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@60980] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:22,clientId=ID:cee802c20164-38595-1714748847215-3:22,started=false} on IOException: null
+2024-05-03T15:11:03.014Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@60996] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:23,clientId=ID:cee802c20164-38595-1714748847215-3:23,started=false} on IOException: null
+2024-05-03T15:11:03.015Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@32772] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:24,clientId=ID:cee802c20164-38595-1714748847215-3:24,started=false} on IOException: null
+2024-05-03T15:11:03.016Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@53302] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:25,clientId=ID:cee802c20164-38595-1714748847215-3:25,started=false} on IOException: null
+2024-05-03T15:11:03.017Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@53318] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:26,clientId=ID:cee802c20164-38595-1714748847215-3:26,started=false} on IOException: null
+2024-05-03T15:11:03.018Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@53332] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:27,clientId=ID:cee802c20164-38595-1714748847215-3:27,started=false} on IOException: null
+2024-05-03T15:11:03.019Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@39836] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:28,clientId=ID:cee802c20164-38595-1714748847215-3:28,started=false} on IOException: null
+2024-05-03T15:11:03.020Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@39844] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:29,clientId=ID:cee802c20164-38595-1714748847215-3:29,started=false} on IOException: null
+2024-05-03T15:11:03.021Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@39848] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:30,clientId=ID:cee802c20164-38595-1714748847215-3:30,started=false} on IOException: null
+2024-05-03T15:11:03.023Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@35474] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:31,clientId=ID:cee802c20164-38595-1714748847215-3:31,started=false} on IOException: null
+2024-05-03T15:11:03.023Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@35480] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:32,clientId=ID:cee802c20164-38595-1714748847215-3:32,started=false} on IOException: null
+2024-05-03T15:11:03.024Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@35484] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:33,clientId=ID:cee802c20164-38595-1714748847215-3:33,started=false} on IOException: null
+2024-05-03T15:11:03.025Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@43192] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:34,clientId=ID:cee802c20164-38595-1714748847215-3:34,started=false} on IOException: null
+2024-05-03T15:11:03.026Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@43208] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:35,clientId=ID:cee802c20164-38595-1714748847215-3:35,started=false} on IOException: null
+2024-05-03T15:11:03.027Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@43210] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:36,clientId=ID:cee802c20164-38595-1714748847215-3:36,started=false} on IOException: null
+2024-05-03T15:11:03.028Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@37970] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:37,clientId=ID:cee802c20164-38595-1714748847215-3:37,started=false} on IOException: null
+2024-05-03T15:11:03.028Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@37978] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:38,clientId=ID:cee802c20164-38595-1714748847215-3:38,started=false} on IOException: null
+2024-05-03T15:11:03.029Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@37986] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:39,clientId=ID:cee802c20164-38595-1714748847215-3:39,started=false} on IOException: null
+2024-05-03T15:11:03.030Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@48174] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:40,clientId=ID:cee802c20164-38595-1714748847215-3:40,started=false} on IOException: null
+2024-05-03T15:11:03.031Z  INFO 30 --- [ActiveMQ Connection Executor: tcp:///127.0.0.1:61616@48184] o.a.a.jms.pool.PooledConnectionFactory   : Expiring connection ActiveMQConnection {id=ID:cee802c20164-38595-1714748847215-4:41,clientId=ID:cee802c20164-38595-1714748847215-3:41,started=false} on IOException: null
+2024-05-03T15:13:39.727Z  INFO 30 --- [main] o.s.boot.SpringApplication               : 
+
+[38;5;51m ███████╗███╗   ███╗███████╗     ██████╗ ██████╗ ███╗   ██╗████████╗██████╗  ██████╗ ██╗
+[38;5;51m ██╔════╝████╗ ████║██╔════╝    ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔══██╗██╔═══██╗██║
+[38;5;51m █████╗  ██╔████╔██║███████╗    ██║     ██║   ██║██╔██╗ ██║   ██║   ██████╔╝██║   ██║██║
+[38;5;12m ██╔══╝  ██║╚██╔╝██║╚════██║    ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══██╗██║   ██║██║
+[38;5;12m ███████╗██║ ╚═╝ ██║███████║    ╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║╚██████╔╝███████╗
+[38;5;12m ╚══════╝╚═╝     ╚═╝╚══════╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+
+[38;5;46m :: EMS Control :: [38;5;87m                       (7.0.0-SNAPSHOT)
+[38;5;46m :: Spring Boot :: [38;5;87m                       (v3.2.4)
+[38;5;46m :: Java (TM)   :: [38;5;87m                       (21.0.1)
+[38;5;46m :: Build Num.  :: [38;5;226m7.0.0-SNAPSHOT
+[38;5;46m :: Build Date  :: [38;5;226m2024-04-23 14:13:01.328+0000
+[38;5;46m :: SCM Branch  :: [38;5;226m@git.branch@,   at Repos.: @git.remote.origin.url@
+[38;5;46m :: Image Tag   :: [38;5;226mems-server:@docker.image.tag@
+[38;5;46m :: Description :: [38;5;226m@build.description@ [39m[0m
+
+2024-05-03T15:13:39.769Z  INFO 30 --- [main] g.i.imu.ems.util.NetUtilPostProcessor    : NetUtilPostProcessor:  NetUtilPropertySource registered (deferred log)
+2024-05-03T15:13:39.772Z  INFO 30 --- [main] g.i.i.e.c.ControlServiceApplication      : Starting ControlServiceApplication using Java 21.0.1 with PID 30 (/opt/ems-server/BOOT-INF/classes started by emsuser in /opt/ems-server)
+2024-05-03T15:13:39.776Z  INFO 30 --- [main] g.i.i.e.c.ControlServiceApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-05-03T15:13:40.534Z  INFO 30 --- [main] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2024-05-03T15:13:40.538Z  INFO 30 --- [main] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2024-05-03T15:13:40.769Z  WARN 30 --- [main] gr.iccs.imu.ems.util.NetUtil             : NetUtil.getPublicIpAddress(): No Public IP address or connectivity problems exist
+2024-05-03T15:13:40.827Z  INFO 30 --- [main] gr.iccs.imu.ems.util.PasswordUtil        : PasswordUtil: Initialized default Password Encoder: gr.iccs.imu.ems.util.password.AsterisksPasswordEncoder
+2024-05-03T15:13:41.248Z  INFO 30 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8111 (https)
+2024-05-03T15:13:41.255Z  INFO 30 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-03T15:13:41.256Z  INFO 30 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-05-03T15:13:41.280Z  INFO 30 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-03T15:13:41.281Z  INFO 30 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1322 ms
+2024-05-03T15:13:41.446Z  INFO 30 --- [main] g.i.i.e.b.c.s.SelfHealingManagerImpl     : Self-Healing Manager initialized
+2024-05-03T15:13:41.446Z  INFO 30 --- [main] g.i.i.e.b.c.s.SelfHealingManagerImpl     : Recovery context: RecoveryContext(variablesMap={BAGUETTE_CLIENT_BASE_DIR=~/baguette-client})
+2024-05-03T15:13:41.483Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer: Generated new username/password: username=user-a2f47072-6050-439a-93b4-a08756ed797e, password=********
+2024-05-03T15:13:41.651Z  INFO 30 --- [main] e.n.ems.translate.NebulousEmsTranslator  : NebulousEmsTranslator: initialized
+2024-05-03T15:13:41.818Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Loaded the Bouncy Castle security provider at position: -1
+2024-05-03T15:13:41.910Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Using Persistence Adapter: MemoryPersistenceAdapter
+2024-05-03T15:13:41.910Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Starting Persistence Adapter: MemoryPersistenceAdapter
+2024-05-03T15:13:41.911Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Starting Temp Data Store
+2024-05-03T15:13:41.911Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Starting Job Scheduler Store
+2024-05-03T15:13:41.911Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Persistence Adapter successfully started
+2024-05-03T15:13:42.034Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Apache ActiveMQ 6.0.1 (broker, ID:651f9da54b1d-34173-1714749221919-0:1) is starting
+2024-05-03T15:13:42.039Z  INFO 30 --- [main] o.a.a.t.TransportServerThreadSupport     : Listening for connections at: ssl://651f9da54b1d:61617?transport.daemon=true&transport.trace=false&transport.useKeepAlive=true&transport.useInactivityMonitor=false&transport.needClientAuth=false&transport.verifyHostName=true&transport.connectionTimeout=0&transport.keepAlive=true
+2024-05-03T15:13:42.039Z  INFO 30 --- [main] o.a.activemq.broker.TransportConnector   : Connector ssl://651f9da54b1d:61617?transport.daemon=true&transport.trace=false&transport.useKeepAlive=true&transport.useInactivityMonitor=false&transport.needClientAuth=false&transport.verifyHostName=true&transport.connectionTimeout=0&transport.keepAlive=true started
+2024-05-03T15:13:42.040Z  INFO 30 --- [main] o.a.a.t.TransportServerThreadSupport     : Listening for connections at: tcp://651f9da54b1d:61616?transport.daemon=true&transport.trace=false&transport.useKeepAlive=true&transport.useInactivityMonitor=false&transport.needClientAuth=false&transport.verifyHostName=true&transport.connectionTimeout=0&transport.keepAlive=true
+2024-05-03T15:13:42.040Z  INFO 30 --- [main] o.a.activemq.broker.TransportConnector   : Connector tcp://651f9da54b1d:61616?transport.daemon=true&transport.trace=false&transport.useKeepAlive=true&transport.useInactivityMonitor=false&transport.needClientAuth=false&transport.verifyHostName=true&transport.connectionTimeout=0&transport.keepAlive=true started
+2024-05-03T15:13:42.042Z  INFO 30 --- [main] o.a.a.t.TransportServerThreadSupport     : Listening for connections at: stomp://651f9da54b1d:61610
+2024-05-03T15:13:42.043Z  INFO 30 --- [main] o.a.activemq.broker.TransportConnector   : Connector stomp://651f9da54b1d:61610 started
+2024-05-03T15:13:42.044Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : Apache ActiveMQ 6.0.1 (broker, ID:651f9da54b1d-34173-1714749221919-0:1) started
+2024-05-03T15:13:42.044Z  INFO 30 --- [main] o.apache.activemq.broker.BrokerService   : For help or more information please see: http://activemq.apache.org
+2024-05-03T15:13:42.054Z  INFO 30 --- [Thread-5] .i.i.e.b.b.i.MessageForwarderInterceptor : MessageQueueProcessor: Starts processing message queue and forward messages
+2024-05-03T15:13:42.088Z  INFO 30 --- [main] c.e.e.c.service.EPServiceProviderImpl    : Initializing engine URI 'default' version 7.1.0
+2024-05-03T15:13:42.304Z  INFO 30 --- [main] eu.nebulous.ems.EmsNebulousProperties    : EmsNebulousProperties(applicationId=null, appId=null, appUid=null, appUuid=null, emsServerPodUid=null, emsServerPodNamespace=null, appPodLabel=app)
+2024-05-03T15:13:42.306Z  INFO 30 --- [main] EmsClientDeploymentPostTranslationPlugin : K8sEmsClientDeploymentPostTranslationPlugin: Application Id (from Env.): null
+2024-05-03T15:13:42.320Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.initTranslator(): Effective translator: eu.nebulous.ems.translate.NebulousEmsTranslator
+2024-05-03T15:13:42.321Z  INFO 30 --- [main] eu.nebulous.ems.service.MvvService       : MvvService: initialized
+2024-05-03T15:13:42.321Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.startServer(): Starting SSH server...
+2024-05-03T15:13:42.323Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : ** SSH server **
+2024-05-03T15:13:42.325Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Public IP address: 10.10.0.4
+2024-05-03T15:13:42.325Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server:  Starting on port: 2222
+2024-05-03T15:13:42.326Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server:   Server key file: /opt/ems-server/config/hostkey.pem
+2024-05-03T15:13:42.362Z  INFO 30 --- [main] s.c.u.s.e.EdDSASecurityProviderRegistrar : getOrCreateProvider(EdDSA) created instance of net.i2p.crypto.eddsa.EdDSASecurityProvider
+2024-05-03T15:13:42.421Z  INFO 30 --- [main] o.a.s.s.k.SimpleGeneratorHostKeyProvider : generateKeyPair(EC) generating host key=nistp521
+2024-05-03T15:13:42.486Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Ready
+2024-05-03T15:13:42.487Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.startServer(): Starting SSH server... done
+2024-05-03T15:13:42.487Z  INFO 30 --- [Thread-7] gr.iccs.imu.ems.baguette.server.Sshd     : --> Heartbeat: Started: period=60000ms
+2024-05-03T15:13:42.515Z  INFO 30 --- [main] g.iccs.imu.ems.control.util.TopicBeacon  : Topic Beacon started: init-delay=10000ms, delay=10000ms
+2024-05-03T15:13:42.517Z  INFO 30 --- [main] g.i.imu.ems.common.plugin.PluginManager  : PluginManager: Started
+2024-05-03T15:13:42.582Z  INFO 30 --- [main] g.iccs.imu.ems.brokercep.EventForwarder  : EventForwarder: Starting event publish/forward worker
+2024-05-03T15:13:42.595Z  WARN 30 --- [main] g.i.i.e.control.info.BuildInfoProvider   : Error while collecting info from file: classpath:/git.properties -- Exception: java.io.FileNotFoundException: class path resource [git.properties] cannot be opened because it does not exist
+2024-05-03T15:13:42.620Z  INFO 30 --- [main] g.i.i.e.c.misc.SystemResourceMonitor     : SystemResourceMonitor started
+2024-05-03T15:13:42.655Z  INFO 30 --- [main] .c.i.ControlServiceInfoEndpointExtension : Info endpoint is enabled and exposed. Added EMS info extension.
+2024-05-03T15:13:42.663Z  INFO 30 --- [main] g.i.i.e.c.c.AbstractEndpointCollector    : Collectors::ServerNetdataCollector: New Allowed Topics: null -- Topics Map: null
+2024-05-03T15:13:42.707Z  INFO 30 --- [main] eu.nebulous.ems.k8s.K8sPodWatcher        : K8sPodWatcher: Disabled  (to enable set 'k8s-watcher.enable' property or K8S_WATCHER_ENABLED env. var. to true)
+2024-05-03T15:13:42.710Z  INFO 30 --- [main] eu.nebulous.ems.boot.EmsBootProperties   : EmsBootProperties(enabled=false, processorPeriod=500, applicationIdPropertyName=application, modelsDir=models, modelsIndexFile=models/index.json, dslTopic=eu.nebulouscloud.ui.dsl.generic, modelsTopic=eu.nebulouscloud.ui.dsl.metric_model, modelsResponseTopic=eu.nebulouscloud.ui.dsl.metric_model.reply, emsBootTopic=eu.nebulouscloud.ems.boot, emsBootResponseTopic=eu.nebulouscloud.ems.boot.reply)
+2024-05-03T15:13:42.714Z  INFO 30 --- [main] eu.nebulous.ems.boot.ModelsService       : ModelsService is disabled because EMS Boot is disabled
+2024-05-03T15:13:42.715Z  INFO 30 --- [main] e.n.ems.boot.NebulousEventsService       : EMS Boot is disabled
+2024-05-03T15:13:42.717Z  INFO 30 --- [main] e.n.e.s.EmsBootInitializerProperties     : EmsBootInitializerProperties(enabled=false, initialWait=PT1S, retryPeriod=PT30S)
+2024-05-03T15:13:42.719Z  INFO 30 --- [main] e.n.e.s.ExternalBrokerListenerService    : ExternalBrokerListenerService: Disabled due to configuration
+2024-05-03T15:13:43.021Z  INFO 30 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2024-05-03T15:13:43.047Z  INFO 30 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1acf7db2, org.springframework.security.web.session.ForceEagerSessionCreationFilter@252da8f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a973b5e, org.springframework.security.web.context.SecurityContextHolderFilter@685dceb8, org.springframework.security.web.header.HeaderWriterFilter@138c2ba, org.springframework.web.filter.CorsFilter@6225c800, org.springframework.security.web.authentication.logout.LogoutFilter@139e291e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@29922188, gr.iccs.imu.ems.control.webconf.WebSecurityConfig$$Lambda/0x0000003801a93708@3e60b1b, gr.iccs.imu.ems.control.webconf.WebSecurityConfig$$Lambda/0x0000003801a93948@17f43f4a, gr.iccs.imu.ems.control.webconf.WebSecurityConfig$$Lambda/0x0000003801a93b88@143abb21, gr.iccs.imu.ems.control.webconf.WebSecurityConfig$$Lambda/0x0000003801a98000@5813046e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7e5c04a4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6212dc7d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6b1e72a4, org.springframework.security.web.session.SessionManagementFilter@3c832820, org.springframework.security.web.access.ExceptionTranslationFilter@5dbd7f00, org.springframework.security.web.access.intercept.AuthorizationFilter@71d92487]
+2024-05-03T15:13:43.106Z  WARN 30 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2024-05-03T15:13:43.230Z  WARN 30 --- [main] .b.a.g.t.GroovyTemplateAutoConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Groovy configuration, or set spring.groovy.template.check-template-location=false)
+2024-05-03T15:13:43.495Z  INFO 30 --- [main] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-05-03T15:13:43.496Z  INFO 30 --- [main] o.s.i.channel.PublishSubscribeChannel    : Channel 'application.errorChannel' has 1 subscriber(s).
+2024-05-03T15:13:43.496Z  INFO 30 --- [main] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2024-05-03T15:13:43.534Z  INFO 30 --- [main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-8111], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [/opt/ems-server/.keystore] using alias [ems] with trust store [null]
+2024-05-03T15:13:43.537Z  INFO 30 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8111 (https) with context path ''
+2024-05-03T15:13:43.539Z  INFO 30 --- [main] i.i.e.b.c.i.h.AbstractInstallationHelper : Server PEM certificate stored in file: /opt/ems-server/config/server.pem
+2024-05-03T15:13:43.539Z  INFO 30 --- [main] i.i.e.b.c.i.h.AbstractInstallationHelper : Server PEM certificate stored in file: /opt/ems-server/config/server.pem
+2024-05-03T15:13:43.549Z  INFO 30 --- [main] g.i.i.e.c.ControlServiceApplication      : Started ControlServiceApplication in 3.999 seconds (process running for 4.304)
+2024-05-03T15:13:43.554Z  WARN 30 --- [main] e.n.ems.service.EmsBootInitializer       : ===================> EMS is ready -- Application Id is blank. EMS Boot disabled
+2024-05-03T15:13:43.555Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.applicationReady(): IP setting: DEFAULT_IP
+2024-05-03T15:13:43.555Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ===================================================================================================
+2024-05-03T15:13:43.556Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.preloadModels(): Preloading models: app-model=test2.yml, app-exec-model=
+2024-05-03T15:13:43.556Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): BEGIN: app-model-id=test2.yml, app-exec-model-id=, request-info=ControlServiceRequestInfo(notificationUri=null, requestUuid=null, applicationId=null, callback=null)
+2024-05-03T15:13:43.557Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.translateAppModelAndStore(): Model translation: model-id=test2.yml
+2024-05-03T15:13:43.557Z  INFO 30 --- [main] e.n.ems.translate.NebulousEmsTranslator  : NebulousEmsTranslator: Parsing metric model file: test2.yml
+2024-05-03T15:13:43.561Z  INFO 30 --- [main] e.n.ems.translate.NebulousEmsTranslator  : NebulousEmsTranslator: Translating metric model: test2.yml
+2024-05-03T15:13:43.765Z  INFO 30 --- [main] e.n.e.t.analyze.MetricModelValidator     : MetricModelValidator:  Metric model is valid: test2
+2024-05-03T15:13:43.941Z  INFO 30 --- [main] e.n.ems.translate.NebulousEmsTranslator  : NebulousEmsTranslator: Translating metric model completed: test2.yml
+2024-05-03T15:13:43.942Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.translateAppModelAndStore(): Running 4 post-translation plugins
+2024-05-03T15:13:43.942Z  INFO 30 --- [main] e.n.e.s.ExternalBrokerPublisherService   : ExternalBrokerPublisherService: Disabled due to configuration
+2024-05-03T15:13:43.943Z  INFO 30 --- [main] EmsClientDeploymentPostTranslationPlugin : K8sEmsClientDeploymentPostTranslationPlugin: Set applicationId to: null  -- was: null
+2024-05-03T15:13:43.943Z  INFO 30 --- [main] EmsClientDeploymentPostTranslationPlugin : K8sEmsClientDeploymentPostTranslationPlugin: EMS clients deployment is disabled
+2024-05-03T15:13:43.945Z  WARN 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.translateAppModelAndStore(): The specified Translation Context file already exists. Its contents will be overwritten: tc-file-pattern=/opt/ems-server/logs/_TC.json, tc-file=/opt/ems-server/logs/_TC.json
+2024-05-03T15:13:43.960Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.translateAppModelAndStore(): Saved translation data in file: /opt/ems-server/logs/_TC.json
+2024-05-03T15:13:43.960Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Running 1 TranslationContext plugins
+2024-05-03T15:13:43.961Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.962Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : ****      T R A N S L A T I O N   R E S U L T S      ****
+2024-05-03T15:13:43.962Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.962Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Model Name: test2
+2024-05-03T15:13:43.962Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.962Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Event-to-Action map:
+{}
+2024-05-03T15:13:43.963Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.963Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : SLO set:
+[a_component.an_slo]
+2024-05-03T15:13:43.963Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.963Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Component-to-Sensor map:
+{Component::a_component=[PullSensor::a__component_response__time__SENSOR, PullSensor::a__component_cpu__util__instance__SENSOR]}
+2024-05-03T15:13:43.964Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.964Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Data-to-Sensor map:
+{}
+2024-05-03T15:13:43.964Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.964Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Monitors:
+ [a__component_response__time__SENSOR, a__component_cpu__util__instance__SENSOR]
+2024-05-03T15:13:43.964Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.965Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Grouping-to-EPL Rules map:
+-----------------------
+PER_INSTANCE: 
+  a__component_cpu__util__instance: 
+    - /* RAW-CTX-PER_INSTANCE */ /*INSERT INTO a__component_cpu__util__instance*/
+      SELECT * FROM a__component_cpu__util__instance__SENSOR OUTPUT ALL EVERY 30 SECONDS
+  a__component_response__time: 
+    - /* RAW-CTX-PER_INSTANCE */ /*INSERT INTO a__component_response__time*/
+      SELECT * FROM a__component_response__time__SENSOR 
+-----------------------
+PER_ZONE: 
+  a__component_cpu__util__prct: 
+    - /* COMP-CTX-AGG-any */ /*INSERT INTO a__component_cpu__util__prct*/   
+      SELECT EVALAGG( 'mean( cpu_util_instance ) * my_sgn( mean( cpu_util_instance ) )', 'cpu_util_instance', a__component_cpu__util__instance ) AS metricValue,
+             3 AS level,
+             current_timestamp AS timestamp  
+      FROM a__component_cpu__util__instance.win:time(5 MINUTES) AS a__component_cpu__util__instance
+      OUTPUT SNAPSHOT EVERY 30 SECONDS
+-----------------------
+GLOBAL: 
+  a__component_an__slo: 
+    - /* SLO-any */ /*INSERT INTO a__component_an__slo*/
+      SELECT * FROM a__component_an__slo__CONSTRAINT
+  a__component_an__slo__CONSTRAINT: 
+    - /* CONSTR-MET-any */ /*INSERT INTO a__component_an__slo__CONSTRAINT*/
+      SELECT * FROM a__component_cpu__util__prct HAVING a__component_cpu__util__prct.metricValue > 80.0
+  busy_a__component_cpu__util__instance: 
+    - /* BUSY-STATUS-VAR-any */ /*INSERT INTO busy_a__component_cpu__util__instance*/
+      SELECT * FROM a__component_cpu__util__instance
+  busy_a__component_response__time: 
+    - /* BUSY-STATUS-VAR-any */ /*INSERT INTO busy_a__component_response__time*/
+      SELECT * FROM a__component_response__time
+
+2024-05-03T15:13:43.965Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.966Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Grouping-to-Topics map:
+  PER_INSTANCE: 
+    - a__component_response__time__SENSOR
+    - a__component_cpu__util__instance
+    - a__component_cpu__util__instance__SENSOR
+    - a__component_response__time
+  PER_ZONE: 
+    - a__component_cpu__util__instance
+    - a__component_cpu__util__prct
+  GLOBAL: 
+    - a__component_cpu__util__instance
+    - a__component_an__slo__CONSTRAINT
+    - a__component_an__slo
+    - a__component_cpu__util__prct
+    - busy_a__component_response__time
+    - busy_a__component_cpu__util__instance
+    - a__component_response__time
+2024-05-03T15:13:43.966Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.966Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Topics-Connections map:
+  PER_INSTANCE: 
+    a__component_cpu__util__instance: [PER_ZONE, GLOBAL]
+    a__component_response__time: [GLOBAL]
+  PER_ZONE: 
+    a__component_cpu__util__prct: [GLOBAL]
+2024-05-03T15:13:43.966Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.967Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : MVV set:
+[]
+2024-05-03T15:13:43.967Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.967Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : MVV_CP map:
+{}
+2024-05-03T15:13:43.967Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.967Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : CMVAR set:
+[]
+2024-05-03T15:13:43.967Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.967Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : RMVAR set:
+[]
+2024-05-03T15:13:43.967Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.968Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Function Definitions set:
+[my_sgn]
+2024-05-03T15:13:43.968Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.968Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Metric Constraints:
+[MetricConstraint(super=UnaryConstraint(super=Constraint(super=NamedElement(super=AbstractRootObject(_objectClass=gr.iccs.imu.ems.translate.model.MetricConstraint, object=null, container=null), name=a_component.an_slo_CONSTRAINT, description=null, annotations=null)), validity=null, comparisonOperator=GREATER_THAN, threshold=80.0), metricContext=null)]
+2024-05-03T15:13:43.969Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.969Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Busy-Status Destination-to-Metric Context names map:
+{busy.a_component.cpu_util_instance=a_component.cpu_util_instance, busy.a_component.response_time=a_component.response_time}
+2024-05-03T15:13:43.969Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.969Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Busy-Status Metrics:
+[a_component.cpu_util_instance, a_component.response_time]
+2024-05-03T15:13:43.969Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.969Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Top-Level Metric names:
+[a_component.an_slo, busy.a_component.response_time, response_time_METRIC, busy.a_component.cpu_util_instance]
+2024-05-03T15:13:43.970Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.970Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.970Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Additional Results:
+{NEBULOUS_PREDICTION_SLO_METRIC_DECOMPOSITION_MAP={name=null, constraints=[{name=a__component_an__slo__CONSTRAINT, operator=>, threshold=80.0, metric=a__component_cpu__util__prct}], version=0, operator=OR}, NEBULOUS_PREDICTION_SLO_METRIC_DECOMPOSITION={"constraints":[{"name":"a__component_an__slo__CONSTRAINT","operator":">","threshold":80.0,"metric":"a__component_cpu__util__prct"}],"version":0,"operator":"OR"}, NEBULOUS_PREDICTION_TOP_LEVEL_NODES_METRICS_MAP={metric_list=[{lower_bound=-Infinity, name=a__component_response__time, upper_bound=Infinity}, {lower_bound=-Infinity, name=a__component_cpu__util__prct, upper_bound=Infinity}, {lower_bound=-Infinity, name=a__component_cpu__util__instance, upper_bound=Infinity}], name=null, version=0}, NEBULOUS_PREDICTION_TOP_LEVEL_NODES_METRICS={"metric_list":[{"lower_bound":"-Infinity","name":"a__component_response__time","upper_bound":"Infinity"},{"lower_bound":"-Infinity","name":"a__component_cpu__util__prct","upper_bound":"Infinity"},{"lower_bound":"-Infinity","name":"a__component_cpu__util__instance","upper_bound":"Infinity"}],"version":0}}
+2024-05-03T15:13:43.970Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.970Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : Export files:
+[]
+2024-05-03T15:13:43.971Z  INFO 30 --- [main] g.i.i.e.t.TranslationContextPrinter      : *********************************************************
+2024-05-03T15:13:43.971Z  WARN 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Skipping MVV retrieval due to configuration
+2024-05-03T15:13:43.971Z  INFO 30 --- [main] g.iccs.imu.ems.brokercep.cep.CepService  : CepService: Clear registered Statements
+2024-05-03T15:13:43.972Z  INFO 30 --- [main] g.iccs.imu.ems.brokercep.cep.CepService  : CepService: Clear registered Event Types
+2024-05-03T15:13:43.976Z  INFO 30 --- [main] g.i.imu.ems.brokercep.BrokerCepService   : BrokerCepService.addEventTypes(): Adding event types: [a__component_cpu__util__instance, a__component_an__slo__CONSTRAINT, a__component_an__slo, a__component_cpu__util__prct, busy_a__component_response__time, busy_a__component_cpu__util__instance, a__component_response__time]
+2024-05-03T15:13:43.991Z  INFO 30 --- [main] g.i.imu.ems.brokercep.BrokerCepService   : BrokerCepService.setConstants(): Add/Set constants: {}
+2024-05-03T15:13:43.991Z  INFO 30 --- [main] g.i.imu.ems.brokercep.BrokerCepService   : BrokerCepService.addFunctionDefinitions(): Adding function definitions: [FunctionDefinition(name=my_sgn, expression=abs( n ) / n, arguments=[n])]
+2024-05-03T15:13:43.992Z  INFO 30 --- [main] g.i.imu.ems.brokercep.BrokerCepService   : BrokerCepService.addFunction(): New function definition registered: FunctionDefinition(name=my_sgn, expression=abs( n ) / n, arguments=[n])
+2024-05-03T15:13:44.246Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.setServerConfiguration(): stopping SSH server...
+2024-05-03T15:13:44.247Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Stopping SSH server...
+2024-05-03T15:13:44.251Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Stopped
+2024-05-03T15:13:44.251Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.setServerConfiguration(): stopping SSH server... done
+2024-05-03T15:13:44.253Z  INFO 30 --- [main] g.i.i.e.b.s.c.c.ClusteringCoordinator    : Cluster Detector class: gr.iccs.imu.ems.baguette.server.coordinator.cluster.ClusterZoneDetector
+2024-05-03T15:13:44.253Z  INFO 30 --- [main] g.i.i.e.b.s.c.c.ClusteringCoordinator    : ClusteringCoordinator.initialize(): Groupings: top-level=GLOBAL, aggregator=PER_ZONE, last-level=PER_INSTANCE
+2024-05-03T15:13:44.254Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.startServer(): Starting SSH server...
+2024-05-03T15:13:44.254Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : ** SSH server **
+2024-05-03T15:13:44.254Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Public IP address: 10.10.0.4
+2024-05-03T15:13:44.255Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server:  Starting on port: 2222
+2024-05-03T15:13:44.255Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server:   Server key file: /opt/ems-server/config/hostkey.pem
+2024-05-03T15:13:44.260Z  INFO 30 --- [main] gr.iccs.imu.ems.baguette.server.Sshd     : SSH server: Ready
+2024-05-03T15:13:44.261Z  INFO 30 --- [main] g.i.i.e.b.s.coordinator.NoopCoordinator  : ClusteringCoordinator: start(): Invoking callback
+2024-05-03T15:13:44.261Z  INFO 30 --- [Thread-8] gr.iccs.imu.ems.baguette.server.Sshd     : --> Heartbeat: Started: period=60000ms
+2024-05-03T15:13:44.261Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : ****************************************
+2024-05-03T15:13:44.261Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : ****  MONITORING TOPOLOGY IS READY  ****
+2024-05-03T15:13:44.261Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : ****************************************
+2024-05-03T15:13:44.262Z  INFO 30 --- [main] g.i.i.e.baguette.server.BaguetteServer   : BaguetteServer.startServer(): Starting SSH server... done
+2024-05-03T15:13:44.262Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.startNetdataCollector(): NetdataCollector is not needed (will not start it): app-model-id=test2.yml
+2024-05-03T15:13:44.266Z  WARN 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Skipping MetaSolver setup due to configuration
+2024-05-03T15:13:44.266Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Cache translation results: app-model-id=test2.yml
+2024-05-03T15:13:44.266Z  WARN 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): Skipping notification due to configuration
+2024-05-03T15:13:44.267Z  INFO 30 --- [main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator._processAppModel(): END: app-model-id=test2.yml
+2024-05-03T15:13:44.295Z  INFO 30 --- [main] g.i.i.e.c.webconf.WebSecurityConfig      : afterPropertiesSet:
+--------------------------------------------------------------------------------
+Sample JWT Token: 
+Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVU0VSIiwiYXVkIjpbIlVQUEVSV0FSRSJdLCJleHAiOjE3MTQ4MzU2MjR9.kz2k8iU3YceqCZEJlQwk4JXivuz9wRoCNRu_LUe79k0
+--------------------------------------------------------------------------------
+2024-05-03T15:13:44.295Z  INFO 30 --- [main] g.i.i.e.c.ControlServiceApplication      : EMS server initialized in 4785ms
+2024-05-03T15:13:52.525Z  INFO 30 --- [scheduling-1] g.iccs.imu.ems.control.util.TopicBeacon  : Topic Beacon: updateModelVersion: Model changed:  -> /test2.yml, version: 1
+2024-05-03T15:13:52.560Z  INFO 30 --- [Thread-5] .i.i.e.b.b.i.MessageForwarderInterceptor : MessageQueueProcessor: Forward destinations initialized: []
+2024-05-03T15:14:42.527Z  INFO 30 --- [Thread-7] gr.iccs.imu.ems.baguette.server.Sshd     : --> Heartbeat: Stopped

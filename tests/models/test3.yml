@@ -1,0 +1,49 @@
+{
+    "apiVersion": "nebulous/v1",
+    "kind": "MetricModel",
+    "metadata": {
+        "name": "d1ca6c80-86ca-472c-b918-147caa7edd15",
+        "labels": {
+            "app": "dummy-app-202404231151"
+        }
+    },
+    "templates": [],
+    "spec": {
+        "components": [
+        ],
+        "scopes": [
+            {
+                "name": "app-wide-scope",
+                "components": [],
+                "metrics": [
+                    {
+                        "name": "RawProcessingLatency",
+                        "type": "raw",
+                        "sensor": {
+                            "type": "job_process_time_instance",
+                            "config": {}
+                        }
+                    },
+                    {
+                        "name": "MeanJobProcessingLatency",
+                        "type": "composite",
+                        "template": "",
+                        "formula": "mean(RawProcessingLatency)",
+                        "window": {
+                            "type": "sliding",
+                            "size": "30 sec"
+                        },
+                        "output": "all 30 sec"
+                    }
+                ],
+                "requirements": [
+                    {
+                        "name": "Combined SLO",
+                        "type": "slo",
+                        "constraint": "(MeanJobProcessingLatency > 50)"
+                    }
+                ]
+            }
+        ]
+    }
+}

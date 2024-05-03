@@ -1,0 +1,26 @@
+
+git clone https://gitlab.com/nebulous-project/ems-main.git
+git clone https://gitlab.com/nebulous-project/ems-nebulous.git
+
+COPY pom.xml, Dockerfile, tests BY HAND
+
+docker build --target ems-server-nebulous -t emsserver .
+docker build --target ems-client -t emsclient .
+
+docker images
+
+-------------------------------------------------------------------
+
+docker compose -f tests\docker-compose.yml up
+
+docker cp .\tests\test2.yml ems:/opt/ems-server/models/
+
+docker exec -it ems bash
+# curl -v -k --request POST "https://localhost:8111/appModel" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"test2.yml\" }"
+
+# curl -v -k --request POST "https://localhost:8111/baguette/registerNode" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"z\", \"id\": \"VM1\", \"name\": \"VM1\", \"operatingSystem\": \"UBUNTU\", \"address\": \"vm1\", \"ssh\": { \"port\": \"22\", \"username\": \"ubuntu\", \"password\": \"ubuntu\" }, \"type\": \"VM\", \"provider\": \"LOCAL\", \"zone-id\": \"LOCAL-ZONE\" }"
+
+# exit
+
+
+docker compose -f tests\docker-compose.yml down
