@@ -21,7 +21,7 @@ RUN cp ems-core/control-service/target/control-service.jar . && \
 
 
 # -----------------   EMS-Core Run image   -----------------
-FROM eclipse-temurin:21.0.1_12-jre AS ems-server-core
+FROM eclipse-temurin:21.0.3_9-jre AS ems-server-core
 
 # Install required and optional packages
 RUN wget --progress=dot:giga -O /usr/local/bin/dumb-init \
@@ -53,7 +53,7 @@ ENV PUBLIC_DIR ${BASEDIR}/public_resources
 
 # Download a JRE suitable for running EMS clients, and
 # offer it for download
-ENV JRE_LINUX_PACKAGE zulu21.30.15-ca-jre21.0.1-linux_x64.tar.gz
+ENV JRE_LINUX_PACKAGE zulu21.34.19-ca-jre21.0.3-linux_x64.tar.gz
 RUN mkdir -p ${PUBLIC_DIR}/resources && \
     wget --progress=dot:giga -O ${PUBLIC_DIR}/resources/${JRE_LINUX_PACKAGE} https://cdn.azul.com/zulu/bin/${JRE_LINUX_PACKAGE}
 
@@ -72,7 +72,6 @@ COPY --chown=${EMS_USER}:${EMS_USER} --from=ems-server-builder /app/dependencies
 COPY --chown=${EMS_USER}:${EMS_USER} --from=ems-server-builder /app/spring-boot-loader    ${BASEDIR}
 COPY --chown=${EMS_USER}:${EMS_USER} --from=ems-server-builder /app/snapshot-dependencies ${BASEDIR}
 COPY --chown=${EMS_USER}:${EMS_USER} --from=ems-server-builder /app/application           ${BASEDIR}
-COPY --chown=${EMS_USER}:${EMS_USER} --from=ems-server-builder /app/ems-nebulous/models   ${BASEDIR}/models
 
 # Copy ESPER dependencies
 COPY --chown=${EMS_USER}:${EMS_USER} --from=ems-server-builder /app/ems-core/control-service/target/esper*.jar       ${BASEDIR}/BOOT-INF/lib/
@@ -91,12 +90,13 @@ FROM ems-server-core AS ems-server-nebulous
 RUN date > /tmp/BUILD-TIME
 
 COPY --from=ems-server-builder /app/ems-nebulous/target/ems-nebulous-plugin-1.0.0-SNAPSHOT-jar-with-dependencies.jar /plugins/
+#COPY --from=ems-server-builder /app/ems-nebulous/models   ${BASEDIR}/models
 ENV EXTRA_LOADER_PATHS=/plugins/*
 ENV SCAN_PACKAGES=eu.nebulous.ems
 
 
 # -----------------   EMS-Client Runtime image   -----------------
-FROM eclipse-temurin:21.0.1_12-jre AS ems-client
+FROM eclipse-temurin:21.0.3_9-jre AS ems-client
 
 # Install required and optional packages
 #RUN apt-get update \
