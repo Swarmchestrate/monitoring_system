@@ -1,0 +1,181 @@
+#
+# Copyright (C) 2017-2025 Institute of Communication and Computer Systems (imu.iccs.gr)
+#
+# This Source Code Form is subject to the terms of the Mozilla Public License, v2.0, unless
+# Esper library is used, in which case it is subject to the terms of General Public License v2.0.
+# If a copy of the MPL was not distributed with this file, you can obtain one at
+# https://www.mozilla.org/en-US/MPL/2.0/
+#
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ems-server.fullname" . }}
+  labels:
+    {{- include "ems-server.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "ems-server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ems-server.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      serviceAccountName: {{ include "ems-server.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            #
+            # EMS server configuration -- Environment variables from command line
+            #
+            - name: APPLICATION_ID
+              value: "{{ .Values.app_uuid }}"
+            - name: EXTERNAL_BROKER_ADDRESS
+              value: "{{ .Values.broker_address }}"
+            - name: EXTERNAL_BROKER_PORT
+              value: "{{ .Values.broker_port }}"
+            - name: EXTERNAL_BROKER_USERNAME
+              value: "{{ .Values.broker_username }}"
+            - name: EXTERNAL_BROKER_PASSWORD
+              value: "{{ .Values.broker_password }}"
+            #
+            # EMS server configuration -- Environment variables from values.yaml
+            #
+            {{- range .Values.env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+            #
+            # K8S cluster node info
+            #
+            - name: EMS_SERVER_K8S_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: EMS_SERVER_K8S_NODE_ADDRESS
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            #
+            # EMS server Pod info
+            #
+            - name: EMS_SERVER_POD_UID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
+            - name: EMS_SERVER_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: EMS_SERVER_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: EMS_SERVER_POD_ADDRESS
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          ports:
+            {{- range .Values.ports }}
+            - name: {{ .name }}
+              containerPort: {{ .containerPort }}
+              protocol: {{ .protocol }}
+            {{- end }}
+          livenessProbe:
+            tcpSocket:
+              port: http
+          readinessProbe:
+            tcpSocket:
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+---
+# The configmap to be updated
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: ems-client-configmap
+#---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ems-server-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "ems-server.serviceAccountName" . }}
+#    namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ems-server-role
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ems-server-role
+# Benefit of using RBAC over giving your personal access token as a secret to your application: You can pinpoint which access you want to allow
+rules:
+  - apiGroups: ["", "apps"] # Empty string for kubernetes system
+    resources: ["configmaps", "daemonsets"]
+    resourceNames: ["monitoring-configmap", "ems-client-configmap", "ems-client-daemonset"]
+    verbs: ["get", "update", "delete", "list", "watch", "patch"]
+  - apiGroups: ["", "apps"] # Empty string for kubernetes system
+    resources: ["configmaps", "daemonsets"]
+    verbs: ["create"]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ems-server-cluster-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "ems-server.serviceAccountName" . }}
+    namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ems-server-cluster-role
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ems-server-cluster-role
+rules:
+  - apiGroups: ["", "apps"]
+    resources: ["pods", "nodes"]
+    verbs: ["get", "list", "watch"]

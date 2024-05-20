@@ -1,0 +1,232 @@
+#
+# Copyright (C) 2017-2025 Institute of Communication and Computer Systems (imu.iccs.gr)
+#
+# This Source Code Form is subject to the terms of the Mozilla Public License, v2.0, unless
+# Esper library is used, in which case it is subject to the terms of General Public License v2.0.
+# If a copy of the MPL was not distributed with this file, you can obtain one at
+# https://www.mozilla.org/en-US/MPL/2.0/
+#
+
+# Default values for ems-server.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: "emsserver"
+  pullPolicy: IfNotPresent
+#  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: &image_tag "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "ems-server-service-account"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8111
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+ports:
+  - name: http
+    containerPort: 8111
+    protocol: TCP
+  - name: openwire
+    containerPort: 61616
+    protocol: TCP
+  - name: openwire-tls
+    containerPort: 61617
+    protocol: TCP
+  - name: stomp
+    containerPort: 61610
+    protocol: TCP
+
+#
+# =====  Configuration passed at command line  =====
+# =====    (see also: deployment.yaml file)    =====
+#
+app_uuid: ''
+broker_address: ''
+broker_port: '5672'
+broker_username: ''
+broker_password: ''
+
+env:
+  #
+  # =====  Development and Debug settings  =====
+  #
+  #- name: APPLICATION_ID
+  #  value: ""
+  #- name: METRIC_MODEL_URL
+  #  value: "https://gitlab.com/nebulous-project/tests-new/-/raw/master/ems-at-nebulous/models/nebulous/test2.yml"
+  #- name: EMS_PRELOAD_APP_MODEL
+  #  value: "test2.yml"
+
+  #
+  # =====  EMS server configuration  =====
+  #
+  # ===== INITIALIZATION settings =====
+  - name: JASYPT_PASSWORD
+    value: 'password'
+  - name: NET_UTIL_ADDRESS_DISCOVERY_SERVICES
+    value: '-'
+  - name: EMS_IP_SETTING
+    value: 'DEFAULT_IP'
+
+  - name: K8S_WATCHER_ENABLED
+    value: 'true'
+  - name: EMS_LOG_REQUESTS
+    value: 'false'
+
+  - name: CONTROL_SKIP_METASOLVER
+    value: 'true'
+  - name: CONTROL_SKIP_NOTIFICATION
+    value: 'true'
+  - name: CONTROL_EXIT_ALLOWED
+    value: 'true'
+  - name: RESTART_EXIT_CODE
+    value: '99'
+
+  # =====  Security and Authentication settings  =====
+  - name: JWT_SECRET
+    value: 'ENC(I0mRWgH2FVDDNs4OBcdh7Z+o3lOQDa3ztaEtmnXT2HN0aClkChp/lqm9zM5HyTk0stJ7v2Di75U=)'
+  - name: WEB_SECURITY_API_KEY_AUTHENTICATION_VALUE
+    value: '1234567890'
+  - name: WEB_SECURITY_FORM_AUTHENTICATION_PASSWORD
+    value: 'ems'
+
+  # =====  EMS Boot (server) settings  =====
+  - name: BOOT_ENABLED
+    value: 'false'
+
+  # =====  EMS Boot Initializer (client) settings  =====
+  - name: BOOT_INITIALIZER_ENABLED
+    value: 'true'
+
+  # =====  EMS-Nebulous K8S service settings  =====
+  - name: K8S_DEPLOY_EMS_CLIENTS_ON_KUBERNETES_ENABLED
+    value: 'true'
+
+  # =====  External Broker settings  =====
+  - name: EXTERNAL_ENABLED
+    value: 'true'
+  #- name: EXTERNAL_BROKER_ADDRESS
+  #  value: ''
+  #- name: EXTERNAL_BROKER_PORT
+  #  value: '5672'
+  #- name: EXTERNAL_BROKER_USERNAME
+  #  value: ''
+  #- name: EXTERNAL_BROKER_PASSWORD
+  #  value: ''
+
+  # =====  Broker settings  =====
+  - name: BROKERCEP_ADDITIONAL_BROKER_CREDENTIALS
+    value: 'aaa/111, bbb/222'       # 'ENC(axeJUxNHajYfBffUwvuT3kwTgLTpRliDMz/ZQ9hROZ3BNOv0Idw72NJsawzIZRuZ)'
+  - name: BROKERCEP_EVENT_RECORDER_ENABLED
+    value: 'false'
+  - name: BROKERCEP_EVENT_RECORDER_FILTER_MODE
+    value: 'ALL'
+
+  # =====  Baguette Server settings  =====
+  - name: BAGUETTE_SERVER_CREDENTIALS
+    value: '{ "aa":"xx" }'          # 'ENC(y46CiW6przlpXvz8ToE+T1Sn6uGfO2haP7OhATB0SXo=)'
+
+  #
+  # =====  EMS server K8sClientInstaller configuration  =====
+  #
+  - name: EMS_CLIENT_DEPLOYMENT_DRY_RUN
+    value: "false"
+  - name: K8S_SERVICE_ACCOUNT_SECRETS_PATH
+    value: "/var/run/secrets/kubernetes.io/serviceaccount"
+  - name: APP_CONFIG_MAP_NAME
+    value: "monitoring-configmap"
+  - name: EMS_CLIENT_CONFIG_MAP_NAME
+    value: "ems-client-configmap"
+  #- name: EMS_CLIENT_DAEMONSET_SPECIFICATION_FILE
+  #  value: "/ems-client-daemonset.yaml"
+  - name: EMS_CLIENT_DAEMONSET_NAME
+    value: "ems-client-daemonset"
+  - name: EMS_CLIENT_DAEMONSET_IMAGE_REPOSITORY
+    value: "emsclient"
+  - name: EMS_CLIENT_DAEMONSET_IMAGE_TAG
+#    value: "latest"
+    value: *image_tag
+  - name: EMS_CLIENT_DAEMONSET_IMAGE_PULL_POLICY
+    value: "IfNotPresent"
+
+  # =====  EMS clients - Security and Authentication settings  =====
+  - name: EMS_CLIENT_ADDITIONAL_BROKER_CREDENTIALS
+    value: 'aaa/111, bbb/222'
+#    value: "ENC(axeJUxNHajYfBffUwvuT3kwTgLTpRliDMz/ZQ9hROZ3BNOv0Idw72NJsawzIZRuZ)"
+  #- name: EMS_CLIENT_BROKER_USERNAME    # It is appended to EMS_CLIENT_ADDITIONAL_BROKER_CREDENTIALS
+  #  value: "ccc"
+  #- name: EMS_CLIENT_BROKER_PASSWORD
+  #  value: "333"
+  - name: EMS_CLIENT_KEYSTORE_SECRET
+    value: ""
+  - name: EMS_CLIENT_TRUSTSTORE_SECRET
+    value: ""
