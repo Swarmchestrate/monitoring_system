@@ -2,3 +2,4 @@ ems-nebulous/
 ems-main/
 .DS_STORE
 tests/ubuntu-sshd/
+tests/logs/
