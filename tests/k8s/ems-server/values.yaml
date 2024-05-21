@@ -173,7 +173,7 @@ env:
 
   # =====  External Broker settings  =====
   - name: EXTERNAL_ENABLED
-    value: 'true'
+    value: 'false'
   #- name: EXTERNAL_BROKER_ADDRESS
   #  value: ''
   #- name: EXTERNAL_BROKER_PORT
