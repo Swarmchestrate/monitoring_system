@@ -26,12 +26,13 @@ spec:
         - name: cpu_util_instance
           busy-status: true
           #sensor: 'netdata system.cpu'
-          sensor: 'netdata k8s.cgroup.cpu'
-#          sensor:
-#            type: netdata
-#            config:
+          #sensor: 'netdata k8s.cgroup.cpu'
+          sensor:
+            type: netdata
+            config:
 #              endpoint: /api/v2/data
-#              scope_contexts: k8s.cgroup.cpu
+              scope_contexts: k8s.cgroup.cpu
+              results-aggregation: SUM
 #              dimensions: '*'
 #              after: -1
 #              group: average
