@@ -9,7 +9,7 @@
 replicaCount: 1
 
 image:
-  repository: "registry.gitlab.com/nebulous-project/tests-new/simple-app-python"
+  repository: "simple-app"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"

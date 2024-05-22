@@ -24,3 +24,161 @@ docker exec -it ems bash
 
 
 docker compose -f tests\docker-compose.yml down
+
+-------------------------------------------------------------------
+-----  Experimenting with EMS and Kubernetes (K8S) -----
+-------------------------------------------------------------------
+
+----- Start a new K8S cluster -----
+kind  create cluster --config tests\k8s\kind\config-3-nodes.yaml
+kubectl cluster-info --context kind-kind
+kubectl config get-contexts
+	CURRENT   NAME             CLUSTER          AUTHINFO         NAMESPACE
+	*         kind-kind        kind-kind        kind-kind
+
+----- Load local EMS images into K8S cluster -----
+kind load docker-image emsserver
+kind load docker-image emsclient
+
+----- Start EMS server using Helm -----
+helm install emsserver .\tests\k8s\ems-server\
+helm list
+	NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+	emsserver       default         1               2024-05-20 17:54:21.8148053 +0300 EEST  deployed        ems-server-0.1.0        7.0.0-SNAPSHOT
+
+----- Check EMS server is running -----
+### kubectl get pods
+### 	NAME                                    READY   STATUS             RESTARTS   AGE
+### 	emsserver-ems-server-7795cd7896-tkn48   0/1     ImagePullBackOff   0          30s
+### kubectl get services
+### 	NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                                         AGE
+### 	emsserver-ems-server          ClusterIP   10.96.3.78      <none>        61616/TCP,61610/TCP                             34s
+### 	emsserver-ems-server-public   NodePort    10.96.243.171   <none>        8111:30111/TCP,61617:31617/TCP,2222:32222/TCP   34s
+### 	kubernetes                    ClusterIP   10.96.0.1       <none>        443/TCP                                         2m45s
+
+kubectl get pods
+	NAME                                    READY   STATUS    RESTARTS   AGE
+	emsserver-ems-server-554766c84d-kpw2b   1/1     Running   0          2m39s
+kubectl get services
+	NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+	emsserver-ems-server   ClusterIP   10.96.150.219   <none>        8111/TCP   2m44s
+	kubernetes             ClusterIP   10.96.0.1       <none>        443/TCP    25m
+kubectl logs -f $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 'jsonpath="{.items[0].metadata.name}"')
+	.......................................................
+	2024-05-20T14:54:31.894Z  INFO 33 --- [           main] g.i.i.e.c.ControlServiceApplication      : Started ControlServiceApplication in 8.377 seconds (process running for 9.045)
+	2024-05-20T14:54:31.903Z  WARN 33 --- [           main] e.n.ems.service.EmsBootInitializer       : ===================> EMS is ready -- Application Id is blank. EMS Boot disabled
+	2024-05-20T14:54:31.905Z  INFO 33 --- [           main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.applicationReady(): IP setting: DEFAULT_IP
+	2024-05-20T14:54:31.905Z  INFO 33 --- [           main] g.i.i.e.c.c.ControlServiceCoordinator    : ControlServiceCoordinator.preloadModels(): No model to preload
+	2024-05-20T14:54:31.906Z  INFO 33 --- [           main] g.i.i.e.c.ControlServiceApplication      : EMS server initialized in 8486ms
+
+
+----- Send a metric model to EMS server -----
+kubectl cp .\tests\models\test2.yml $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}"):/opt/ems-server/models/
+kubectl exec -it $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 'jsonpath="{.items[0].metadata.name}"') -- bash
+# curl -v -k --request POST "https://localhost:8111/appModel" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"test2.yml\" }"
+# exit
+
+----- Check EMS clients has started -----
+kubectl get pods
+	NAME                                    READY   STATUS    RESTARTS   AGE
+	ems-client-daemonset-j5rh2              1/1     Running   0          50s
+	ems-client-daemonset-trvzv              1/1     Running   0          50s
+	emsserver-ems-server-554766c84d-kpw2b   1/1     Running   0          10m
+kubectl get services
+	NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+	emsserver-ems-server   ClusterIP   10.96.150.219   <none>        8111/TCP   10m
+	kubernetes             ClusterIP   10.96.0.1       <none>        443/TCP    33m
+kubectl get deployments
+	NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
+	emsserver-ems-server   1/1     1            1           10m
+kubectl get daemonsets
+	NAME                   DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+	ems-client-daemonset   2         2         2       2            2           <none>          65s
+kubectl get configmaps
+	NAME                   DATA   AGE
+	ems-client-configmap   11     72s
+	kube-root-ca.crt       1      33m
+	monitoring-configmap   3      72s
+
+kubectl logs -f $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 'jsonpath="{.items[0].metadata.name}"')
+	.......................................................
+	2024-05-20T15:04:13.384Z  INFO 33 --- [       Thread-9] g.i.i.e.b.server.ClientShellCommand      : #00001--> Client grouping changed: PER_INSTANCE --> PER_ZONE
+	2024-05-20T15:04:13.384Z  INFO 33 --- [       Thread-9] g.i.i.e.b.s.c.c.ClusteringCoordinator    : Updated aggregator of zone: 2024-05-20T15:04:09.810475911Z -- New aggregator: #00001 @ 172.18.0.2 (7e7e61bc-d140-4a28-9acf-f3ec64062371)
+	2024-05-20T15:04:13.385Z  INFO 33 --- [       Thread-9] g.i.i.e.b.server.ClientShellCommand      : #00001--> Client status changed: INITIALIZING --> AGGREGATOR
+	2024-05-20T15:04:13.477Z  INFO 33 --- [       Thread-9] g.i.i.e.b.server.ClientShellCommand      : #00001--> Client property changed: node-id = null --> node_kind-worker2_2001
+
+
+----- Deploy Netdata using Helm -----
+### helm repo add netdata https://netdata.github.io/helmchart/		MONO THN PROTH FORA
+### helm repo update												MONO THN PROTH FORA
+### helm install netdata netdata/netdata
+
+----- Build Simple-App -----
+docker build -t simple-app -f .\tests\Dockerfile .
+
+----- Deploy Simple-App using Helm -----
+### kind load docker-image simple-app
+### helm install app .\tests\k8s\simple-app-prometheus\
+### kubectl get pods -o wide
+### kubectl logs -f $(kubectl get pods -l '"app=app-simple-app-prometheus"' -o 'jsonpath="{.items[0].metadata.name}"')
+
+----- YOUR TESTS -----
+----- YOUR TESTS -----
+----- YOUR TESTS -----
+
+----- Undeploy Simple-App using Helm -----
+### helm uninstall app
+
+----- Undeploy Netdata using Helm -----
+### helm uninstall netdata
+
+----- Undeploy EMS server using Helm -----
+helm uninstall emsserver
+
+----- Clean EMS clients manually -----
+kubectl delete ds ems-client-daemonset
+kubectl delete cm ems-client-configmap  monitoring-configmap
+
+
+----- Destroy K8S cluster -----
+kind delete cluster
+
+
+-------------------------------------------------------------------
+-----  WORK-IN-PROGRESS  (not yet completed)  -----
+-------------------------------------------------------------------
+
+helm repo add ems https://gitlab.com/nebulous-project/helm-repo/-/raw/main/
+helm repo add netdata https://netdata.github.io/helmchart/
+helm repo update
+helm install ems ems/ems-server
+helm install netdata netdata/netdata
+
+
+-------------------------------------------------------------------
+-----  USED FREQUENTLY during DEVELOPMENT  -----
+-------------------------------------------------------------------
+
+ADD ems-core/.dev-skip-build-web-admin
+
+// Se ena terminal
+
+docker build --target ems-server-nebulous -t emsserver .
+kind load docker-image emsserver
+helm install emsserver .\tests\k8s\ems-server\
+kubectl logs -f $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 'jsonpath="{.items[0].metadata.name}"')
+### Run
+helm uninstall emsserver
+kubectl delete ds ems-client-daemonset
+kubectl delete cm ems-client-configmap  monitoring-configmap
+
+
+// Se allo terminal
+kubectl cp .\tests\models\test2.yml $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}"):/opt/ems-server/models/
+	-OR-
+	kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}"
+	kubectl cp .\tests\models\test2.yml ..........:/opt/ems-server/models/
+kubectl exec -it $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 'jsonpath="{.items[0].metadata.name}"') -- bash
+# curl -v -k --request POST "https://localhost:8111/appModel" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"test2.yml\" }"
+# exit
+
