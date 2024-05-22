@@ -30,18 +30,22 @@ docker compose -f tests\docker-compose.yml down
 -------------------------------------------------------------------
 
 ----- Start a new K8S cluster -----
-kind  create cluster --config tests\k8s\kind\config-3-nodes.yaml
+kind  create cluster --config tests/k8s/kind/config-3-nodes.yaml
 kubectl cluster-info --context kind-kind
 kubectl config get-contexts
 	CURRENT   NAME             CLUSTER          AUTHINFO         NAMESPACE
 	*         kind-kind        kind-kind        kind-kind
+
+----- Build EMS images -----
+docker build --target ems-server-nebulous -t emsserver .
+docker build --target ems-client -t emsclient .
 
 ----- Load local EMS images into K8S cluster -----
 kind load docker-image emsserver
 kind load docker-image emsclient
 
 ----- Start EMS server using Helm -----
-helm install emsserver .\tests\k8s\ems-server\
+helm install emsserver ./tests/k8s/ems-server/
 helm list
 	NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
 	emsserver       default         1               2024-05-20 17:54:21.8148053 +0300 EEST  deployed        ems-server-0.1.0        7.0.0-SNAPSHOT
@@ -73,7 +77,7 @@ kubectl logs -f $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o '
 
 
 ----- Send a metric model to EMS server -----
-kubectl cp .\tests\models\test2.yml $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}"):/opt/ems-server/models/
+kubectl cp ./tests/models/test2.yml $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}"):/opt/ems-server/models/
 kubectl exec -it $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 'jsonpath="{.items[0].metadata.name}"') -- bash
 # curl -v -k --request POST "https://localhost:8111/appModel" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"test2.yml\" }"
 # exit
