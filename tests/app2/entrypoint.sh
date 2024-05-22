@@ -7,23 +7,25 @@
 # https://www.mozilla.org/en-US/MPL/2.0/
 #
 
+BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 if ! command pip3 &> /dev/null; then
   apt-get install -y python3-pip
 fi
-pip3 install -r requirements.txt
+pip3 install -r $BASEDIR/requirements.txt
 
 echo Argument: $1
 
 case $1 in
   client)
     # Start simple-app to send messages to broker
-    python3 simple-app.py
+    python3 $BASEDIR/simple-app.py
     ;;
   prometheus-sh)
     # Start prometheus endpoint using bash script
-    ./simple-prometheus-exporter.sh
+    $BASEDIR//simple-prometheus-exporter.sh
     ;;
   prometheus-py | *)
     # Start prometheus endpoint using python programme
-    python3 simple-prometheus-exporter.py
+    python3 $BASEDIR/simple-prometheus-exporter.py
 esac
