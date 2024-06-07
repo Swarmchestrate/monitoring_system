@@ -35,7 +35,7 @@ kubectl cluster-info --context kind-kind
 kubectl config get-contexts
 	CURRENT   NAME             CLUSTER          AUTHINFO         NAMESPACE
 	*         kind-kind        kind-kind        kind-kind
-
+#an den exw diagrapsei to cluster xekinaw edw
 ----- Build EMS images -----
 docker build --target ems-server-nebulous -t emsserver .
 docker build --target ems-client -t emsclient .
@@ -67,7 +67,7 @@ kubectl get services
 	NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 	emsserver-ems-server   ClusterIP   10.96.150.219   <none>        8111/TCP   2m44s
 	kubernetes             ClusterIP   10.96.0.1       <none>        443/TCP    25m
-kubectl logs -f $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 'jsonpath="{.items[0].metadata.name}"')
+kubectl logs -f $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}")
 	.......................................................
 	2024-05-20T14:54:31.894Z  INFO 33 --- [           main] g.i.i.e.c.ControlServiceApplication      : Started ControlServiceApplication in 8.377 seconds (process running for 9.045)
 	2024-05-20T14:54:31.903Z  WARN 33 --- [           main] e.n.ems.service.EmsBootInitializer       : ===================> EMS is ready -- Application Id is blank. EMS Boot disabled
@@ -78,7 +78,7 @@ kubectl logs -f $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o '
 
 ----- Send a metric model to EMS server -----
 kubectl cp ./tests/models/test2.yml $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}"):/opt/ems-server/models/
-kubectl exec -it $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 'jsonpath="{.items[0].metadata.name}"') -- bash
+kubectl exec -it $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}") -- bash
 # curl -v -k --request POST "https://localhost:8111/appModel" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"test2.yml\" }"
 # exit
 
@@ -118,14 +118,17 @@ kubectl logs -f $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o '
 ### helm install netdata netdata/netdata
 
 ----- Build Simple-App -----
-docker build -t simple-app -f .\tests\Dockerfile .
+chmod +x tests/app2/entrypoint.sh
+docker build -t simple-app -f ./tests/Dockerfile .
 
 ----- Deploy Simple-App using Helm -----
 ### kind load docker-image simple-app
-### helm install app .\tests\k8s\simple-app-prometheus\
+### helm install app ./tests/k8s/simple-app-prometheus/
 ### kubectl get pods -o wide
-### kubectl logs -f $(kubectl get pods -l '"app=app-simple-app-prometheus"' -o 'jsonpath="{.items[0].metadata.name}"')
+### kubectl logs -f $(kubectl get pods -l "app=app-simple-app-prometheus" -o jsonpath="{.items[0].metadata.name}")
 
+
+#gia na tsekarw ta logs paw stou worker opou trexei kai grafw:  kubectl logs -f ems-client-daemonset-6r2hk
 ----- YOUR TESTS -----
 ----- YOUR TESTS -----
 ----- YOUR TESTS -----
@@ -143,7 +146,7 @@ helm uninstall emsserver
 kubectl delete ds ems-client-daemonset
 kubectl delete cm ems-client-configmap  monitoring-configmap
 
-
+#den xreiazetai na kanoume delete ton cluster kathe fora 
 ----- Destroy K8S cluster -----
 kind delete cluster
 
