@@ -104,7 +104,7 @@ kubectl get configmaps
 	kube-root-ca.crt       1      33m
 	monitoring-configmap   3      72s
 
-kubectl logs -f $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 'jsonpath="{.items[0].metadata.name}"')
+kubectl logs -f $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}")
 	.......................................................
 	2024-05-20T15:04:13.384Z  INFO 33 --- [       Thread-9] g.i.i.e.b.server.ClientShellCommand      : #00001--> Client grouping changed: PER_INSTANCE --> PER_ZONE
 	2024-05-20T15:04:13.384Z  INFO 33 --- [       Thread-9] g.i.i.e.b.s.c.c.ClusteringCoordinator    : Updated aggregator of zone: 2024-05-20T15:04:09.810475911Z -- New aggregator: #00001 @ 172.18.0.2 (7e7e61bc-d140-4a28-9acf-f3ec64062371)
