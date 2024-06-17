@@ -13,7 +13,7 @@ FROM docker.io/library/maven:3.9.6-eclipse-temurin-21 as ems-server-builder
 ENV BASEDIR /app
 WORKDIR ${BASEDIR}
 COPY ems-main/ems-core           ${BASEDIR}/ems-core
-COPY ems-swarmchestrate/ems-swarmchestrate   ${BASEDIR}/ems-swarmchestrate
+COPY ems-nebulous/ems-nebulous   ${BASEDIR}/ems-nebulous
 COPY pom.xml                     ${BASEDIR}/
 RUN --mount=type=cache,target=/root/.m2  mvn -f ${BASEDIR}/pom.xml -DskipTests clean install -P '!build-docker-image'
 RUN cp ems-core/control-service/target/control-service.jar . && \
@@ -84,15 +84,15 @@ EXPOSE 61617
 
 ENTRYPOINT ["dumb-init", "./bin/run.sh"]
 
-# -----------------   EMS-Swarmchestrate Runtime image   -----------------
-FROM ems-server-core AS ems-server-swarmchestrate
+# -----------------   EMS-Nebulous Runtime image   -----------------
+FROM ems-server-core AS ems-server-nebulous
 
 RUN date > /tmp/BUILD-TIME
 
-COPY --from=ems-server-builder /app/ems-swarmchestrate/target/ems-swarmchestrate-plugin-1.0.0-SNAPSHOT.jar /plugins/
+COPY --from=ems-server-builder /app/ems-nebulous/target/ems-nebulous-plugin-1.0.0-SNAPSHOT-jar-with-dependencies.jar /plugins/
 #COPY --from=ems-server-builder /app/ems-nebulous/models   ${BASEDIR}/models
 ENV EXTRA_LOADER_PATHS=/plugins/*
-ENV SCAN_PACKAGES=eu.swarmchestrate.ems
+ENV SCAN_PACKAGES=eu.nebulous.ems
 
 
 # -----------------   EMS-Client Runtime image   -----------------

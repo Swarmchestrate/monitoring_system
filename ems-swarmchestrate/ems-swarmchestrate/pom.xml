@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~ Copyright (C) 2023-2025 Institute of Communication and Computer Systems (imu.iccs.gr)
+ ~
+ ~ This Source Code Form is subject to the terms of the Mozilla Public License, v2.0.
+ ~ If a copy of the MPL was not distributed with this file, you can obtain one at
+ ~ https://www.mozilla.org/en-US/MPL/2.0/
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>eu.swarmchestrate.ems</groupId>
+    <artifactId>ems-swarmchestrate-plugin</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Swarmchestrate EMS plugin</name>
+    <description>Swarmchestrate EMS plugin</description>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- EMS versions -->
+        <ems.version>7.0.0-SNAPSHOT</ems.version>
+
+        <!-- Spring Boot versions -->
+        <spring.version>6.1.6</spring.version>
+        <spring-boot.version>3.2.5</spring-boot.version>
+        <snakeyaml.version>2.2</snakeyaml.version>
+        <lombok.version>1.18.30</lombok.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Compile time dependencies - Will be provided by EMS at runtime -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring Boot dependencies - Will be provided by EMS -->
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>provided</scope>
+        </dependency>-->
+        <!-- If omitted the Nebulous EMS extension will not be used by EMS server -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+            <version>${spring.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- EMS dependencies - At runtime they will be provided by EMS -->
+        <dependency>
+            <groupId>gr.iccs.imu.ems</groupId>
+            <artifactId>translator</artifactId>
+            <version>${ems.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>gr.iccs.imu.ems</groupId>
+            <artifactId>control-service</artifactId>
+            <version>${ems.version}</version>
+            <classifier>original</classifier>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <scm>
+        <connection>scm:git:http://127.0.0.1/dummy</connection>
+        <developerConnection>scm:git:https://127.0.0.1/dummy</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://127.0.0.1/dummy</url>
+    </scm>
+
+</project>

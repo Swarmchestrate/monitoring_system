@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (C) 2017-2023 Institute of Communication and Computer Systems (imu.iccs.gr)
+  ~ Copyright (C) 2017-2025 Institute of Communication and Computer Systems (imu.iccs.gr)
   ~
   ~ This Source Code Form is subject to the terms of the Mozilla Public License, v2.0, unless
   ~ Esper library is used, in which case it is subject to the terms of General Public License v2.0.
@@ -11,16 +11,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>Event Management System for Nebulous/Swarmchestrate</name>
+    <name>Event Management System for Swarmchestrate</name>
     <groupId>gr.iccs.imu.ems</groupId>
-    <!--<artifactId>ems-nebublous</artifactId>-->
     <artifactId>ems-swarmchestrate</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>ems-core</module>
-        <!--<module>ems-nebulous</module>-->
+        <module>../ems-main/ems-core</module>
         <module>ems-swarmchestrate</module>
     </modules>
 

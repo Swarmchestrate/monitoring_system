@@ -5,6 +5,7 @@ git clone https://gitlab.com/nebulous-project/ems-nebulous.git
 COPY pom.xml, Dockerfile, tests BY HAND
 
 docker build --target ems-server-nebulous -t emsserver .
+docker build --target ems-server-swarmchestrate -t emsserver .
 docker build --target ems-client -t emsclient .
 
 docker images
