@@ -33,7 +33,7 @@ spec:
 #              endpoint: /api/v2/data
               scope_contexts: k8s.cgroup.cpu
 #              namespace: 'default'
-#              components: 'app-simple-app-prometheus'
+              components: 'app-simple-app-prometheus'
               results-aggregation: SUM
 #              dimensions: '*'
 #              after: -1
@@ -41,7 +41,7 @@ spec:
 #              format: ssv
 #              chart_label_key: k8s_pod_name,k8s_namespace
 #              chart_labels_filter: k8s_pod_name:netdata-child-gm9wc,k8s_namespace:default
-          output: 'all 30 sec'
+          output: 'all 10 sec'
 
         - name: response_time
           busy-status: true
