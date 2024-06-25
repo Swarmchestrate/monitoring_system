@@ -44,6 +44,8 @@ docker build --target ems-client -t emsclient .
 ----- Load local EMS images into K8S cluster -----
 kind load docker-image emsserver
 kind load docker-image emsclient
+-OR-
+kind load docker-image emsserver emsclient
 
 ----- Start EMS server using Helm -----
 helm install emsserver ./tests/k8s/ems-server/
