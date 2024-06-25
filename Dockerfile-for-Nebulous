@@ -14,8 +14,8 @@ ENV BASEDIR /app
 WORKDIR ${BASEDIR}
 COPY ems-main/ems-core           ${BASEDIR}/ems-core
 COPY ems-nebulous/ems-nebulous   ${BASEDIR}/ems-nebulous
-COPY pom.xml                     ${BASEDIR}/
-RUN --mount=type=cache,target=/root/.m2  mvn -f ${BASEDIR}/pom.xml -DskipTests clean install -P '!build-docker-image'
+RUN --mount=type=cache,target=/root/.m2  mvn -f ${BASEDIR}/ems-core/pom.xml -DskipTests clean install -P '!build-docker-image'
+RUN --mount=type=cache,target=/root/.m2  mvn -f ${BASEDIR}/ems-nebulous/pom.xml -DskipTests clean install -P '!build-docker-image'
 RUN cp ems-core/control-service/target/control-service.jar . && \
     java -Djarmode=layertools -jar control-service.jar extract
 
