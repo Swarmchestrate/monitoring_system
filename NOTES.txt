@@ -4,7 +4,9 @@ git clone https://gitlab.com/nebulous-project/ems-nebulous.git
 
 COPY pom.xml, Dockerfile, tests BY HAND
 
-docker build --target ems-server-nebulous -t emsserver .
+docker build -f Dockerfile-for-Nebulous --target ems-server-nebulous -t emsserver .
+docker build -f Dockerfile-for-Nebulous --target ems-client -t emsclient .
+
 docker build --target ems-server-swarmchestrate -t emsserver .
 docker build --target ems-client -t emsclient .
 
@@ -44,8 +46,6 @@ docker build --target ems-client -t emsclient .
 ----- Load local EMS images into K8S cluster -----
 kind load docker-image emsserver
 kind load docker-image emsclient
--OR-
-kind load docker-image emsserver emsclient
 
 ----- Start EMS server using Helm -----
 helm install emsserver ./tests/k8s/ems-server/
@@ -192,3 +192,14 @@ kubectl exec -it $(kubectl get pods -l '"app.kubernetes.io/name=ems-server"' -o 
 # curl -v -k --request POST "https://localhost:8111/appModel" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"test2.yml\" }"
 # exit
 
+-------------------------------------------------------------------
+
+docker build -f Dockerfile-for-Nebulous --target ems-server-nebulous -t emsserver .  ;  docker build -f Dockerfile-for-Nebulous --target ems-client -t emsclient .
+docker build -f Dockerfile-for-Nebulous --target ems-client -t emsclient .
+kind load docker-image emsserver emsclient
+helm install emsserver ./tests/k8s/ems-server/
+kubectl cp ./tests/models/test2.yml "$(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}"):/opt/ems-server/models/"  ;  kubectl exec -it $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}") -- curl -v -k --request POST "https://localhost:8111/appModel" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data '{ \"applicationId\": \"test2.yml\" }'
+kubectl logs -f $(kubectl get pods -l "app.kubernetes.io/name=ems-server" -o jsonpath="{.items[0].metadata.name}")
+kubectl get pods -o wide
+kubectl logs -f ems-client-daemonset-
+helm uninstall emsserver  ;  kubectl delete ds ems-client-daemonset  ;  kubectl delete cm ems-client-configmap  monitoring-configmap
