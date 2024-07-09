@@ -136,6 +136,8 @@ env:
     value: '-'
   - name: EMS_IP_SETTING
     value: 'DEFAULT_IP'
+  #- name: LOGGING_LEVEL_EU_NEBULOUS_EMS_TRANSLATE
+  #  value: 'TRACE'
 
   - name: K8S_WATCHER_ENABLED
     value: 'true'
