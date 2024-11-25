@@ -12,4 +12,5 @@ if [[ "$output" != /* ]]; then
 fi
 
 mvn clean compile
-mvn -X exec:java -Dexec.mainClass="ToscaToCamlTranslator" -Dexec.args="$input $output"
+
+mvn -X exec:java -Dexec.mainClass="ToscaToCamlTranslator" -Dexec.args="$input $output" 

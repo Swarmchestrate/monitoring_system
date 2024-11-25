@@ -1,8 +1,9 @@
 ---
-apiVersion: "nebulous/v1"
+apiVersion: "swarmchestrate/v0"
 kind: "MetricModel"
 metadata:
-  name: "Translated Metric Model"
+  template_name: "ICCS generated types definition"
+  template_author: "ICCS"
 spec:
   components:
   - name: "a_comoponent"
