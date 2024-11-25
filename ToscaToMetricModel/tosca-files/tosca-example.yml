@@ -1,0 +1,67 @@
+tosca_definitions_version: tosca_prestocloud_mapping_1_2
+
+metadata:
+   template_name: CAML-to-TOSCA Translation
+   template_author: Automated Translator
+
+description: Translated Metric Definitions from CAML to TOSCA
+
+imports:
+   - tosca-normative-types:1.2
+   - iccs-normative-types:1.0
+   - resource-descriptions:1.0
+   - placement-constraints:1.0
+
+node_types:
+  a_component:
+    derived_from: tosca.nodes.Root
+    description: A component with translated metrics from CAML format
+    capabilities:
+      - monitoring:
+          type: capabilities.MetricMonitoringCapability
+          properties:
+            raw:
+              cpu_usage:
+                collector: cAdvisor
+                config: {}
+                collection_frequency: 15 s
+                collection_output: all
+                unit: 
+                  id: 'unknown'  # Specify unit if known
+                  type: real
+
+              invocations:
+                collector: openfaas_collector
+                config: {}
+                collection_frequency: 15 s
+                collection_output: all
+                unit: 
+                  id: 'count'
+                  type: integer
+
+            composite:
+              cpu_usage_mean:
+                formula: 
+                  type: 'mean'
+                  argument: 'cpu_usage'
+                  collection_frequency: 15 s
+                  collection_output: all
+                window: 
+                  type: 'sliding'
+                  size: '15 sec'
+                processing:
+                  type: 'grouping'
+                  criteria: 'none'  # Adjust if required
+
+              invocations_max:
+                formula:
+                  type: 'max'
+                  argument: 'invocations'
+                  collection_frequency: 15 s
+                  collection_output: all
+                window:
+                  type: 'sliding'
+                  size: '15 sec'
+                processing:
+                  type: 'grouping'
+                  criteria: 'none'  # Adjust if required

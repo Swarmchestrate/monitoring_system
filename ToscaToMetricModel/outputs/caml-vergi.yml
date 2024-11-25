@@ -1,0 +1,17 @@
+---
+apiVersion: "nebulous/v1"
+kind: "MetricModel"
+metadata:
+  name: "Translated Metric Model"
+spec:
+  components:
+  - name: "a_comoponent"
+    requirements:
+    - name: "cpu_slo"
+      type: "slo"
+      constraint: "cpu_util_prct > 80"
+    metrics: []
+scopes:
+- name: "a_scope"
+  components:
+  - "a_comoponent"

@@ -44,5 +44,6 @@ COPY ./tests/app2  /app2
 WORKDIR /app2
 USER $USERNAME
 RUN pip3 install -r /app2/requirements.txt
+# RUN chmod +x /app2/entrypoint.sh
 
 ENTRYPOINT [ "/app2/entrypoint.sh" ]
