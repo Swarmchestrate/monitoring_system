@@ -61,10 +61,14 @@ public class ToscaToCamlTranslator {
         Map<String, Object> componentsData = (Map<String, Object>) toscaYaml.get("node_types");
         logger.debug("Component types: {}", componentsData);
 
+        List<String> componentNames = new ArrayList<>();
+
         if (componentsData != null) {
             for (Map.Entry<String, Object> entry : componentsData.entrySet()) {
                 Map<String, Object> componentCaml = new LinkedHashMap<>();
-                componentCaml.put("name", entry.getKey());
+                String componentName = entry.getKey();
+                componentCaml.put("name", componentName);
+                componentNames.add(componentName);
 
                 Map<String, Object> componentNodeTypes = (Map<String, Object>) entry.getValue();
                 
@@ -79,108 +83,136 @@ public class ToscaToCamlTranslator {
                     logger.debug("Capabilities for {}: {}", entry.getKey(), capabilities);
 
                     if (capabilities != null) {
+                        logger.info("Processing capabilities for {}", entry.getKey());
                         for (Map<String, Object> capability : capabilities) {
+                            capability = (Map<String, Object>) capability.entrySet().iterator().next().getValue();
 
+                            logger.debug("{} Capability: {}", capability.get("type"), capability);
                             // search for a capability which has "type" of capabilities.MetricMonitoringCapability
                             if ("capabilities.MetricMonitoringCapability".equals(capability.get("type"))) {
-                                Map<String, Object> properties = (Map<String, Object>) capability.get("properties");
-                                if (properties != null) {
+                                Map<String, Object> monitoringProperties = (Map<String, Object>) capability.get("properties");
+                                if (monitoringProperties != null) {
                                     // Process raw metrics
-                                    Map<String, Object> raw = (Map<String, Object>) properties.get("raw");
-                                    if (raw != null) {
-                                        for (Map.Entry<String, Object> rawMetric : raw.entrySet()) {
-                                            Map<String, Object> metric = new LinkedHashMap<>();
-                                            metric.put("name", rawMetric.getKey());
+                                    List<Map<String, Object>> raw = (List<Map<String, Object>>) monitoringProperties.get("raw");
+                                    logger.debug("Raw metrics for {}: {}", entry.getKey(), raw);
 
-                                            Map<String, Object> rawMetricData = (Map<String, Object>) rawMetric.getValue();
+                                    if (raw != null) {
+                                        for (Map<String, Object> rawMetric : raw) {
+                                            Map.Entry<String, Object> rawMetricEntry = (Map.Entry<String, Object>) rawMetric.entrySet().iterator().next();
+                                            logger.debug("Raw metric: {}", rawMetric);
+                                            Map<String, Object> metric = new LinkedHashMap<>();
+                                            metric.put("name", rawMetricEntry.getKey());
+                                    
+                                            Map<String, Object> rawMetricData = (Map<String, Object>) rawMetricEntry.getValue();
                                             if (rawMetricData != null) {
                                                 // Sensor configuration
                                                 Map<String, Object> sensor = new LinkedHashMap<>();
                                                 sensor.put("type", rawMetricData.get("collector"));
+                                                Map<String, Object> sensorConfig = (Map<String, Object>) rawMetricData.get("config");
+                                                logger.debug("Sensor config: {}", sensorConfig);
+                                                
+                                                String collectorInstance = (String) rawMetricData.get("collector_inst");
+                                                sensorConfig.put("metric", collectorInstance);
+                                                sensor.put("config", sensorConfig);
                                                 metric.put("sensor", sensor);
-
+                                    
                                                 // Output and frequency
                                                 String collectionOutput = (String) rawMetricData.get("collection_output");
                                                 String collectionFrequency = (String) rawMetricData.get("collection_frequency");
                                                 metric.put("output", collectionOutput + " " + collectionFrequency);
                                             }
-
+                                    
                                             // Add to metrics
                                             metrics.add(metric);
                                         }
                                     }
 
                                     // Process composite metrics
-                                    Map<String, Object> composite = (Map<String, Object>) properties.get("composite");
+                                    List<Map<String, Object>> composite = (List<Map<String, Object>>) monitoringProperties.get("composite");
+                                    logger.debug("Composite metrics for {}: {}", entry.getKey(), composite);
+
                                     if (composite != null) {
-                                        for (Map.Entry<String, Object> compositeMetric : composite.entrySet()) {
+                                        for (Map<String, Object> compositeMetric : composite) {
+                                            Map.Entry<String, Object> compositeMetricEntry = (Map.Entry<String, Object>) compositeMetric.entrySet().iterator().next();
                                             Map<String, Object> metric = new LinkedHashMap<>();
-                                            metric.put("name", compositeMetric.getKey());
-                                            Map<String, Object> compositeData = (Map<String, Object>) compositeMetric.getValue();
+                                            metric.put("name", compositeMetricEntry.getKey());
+                                            Map<String, Object> compositeData = (Map<String, Object>) compositeMetricEntry.getValue();
 
                                             if (compositeData != null) {
                                                 // Handle the formula
-                                                metric.put("formula", compositeData.get("formula") != null ?
-                                                        compositeData.get("formula").toString() :
-                                                        compositeData.get("type") + "(" + compositeData.get("argument") + ")");
+                                                Map<String, Object> formula = (Map<String, Object>) compositeData.get("formula");
+                                                if (formula != null) {
+                                                    String collectionOutput = (String) formula.get("collection_output");
+                                                    String collectionFrequency = (String) formula.get("collection_frequency");
+                                                    metric.put("formula", formula.get("type") + "(" + formula.get("argument") + ")");
+                                                    metric.put("output", collectionOutput + " " + collectionFrequency);
+                                                }
 
                                                 // Handle window
                                                 Map<String, Object> window = (Map<String, Object>) compositeData.get("window");
                                                 if (window != null) {
                                                     String windowType = (String) window.get("type");
                                                     String windowSize = (String) window.get("size");
-                                                    metric.put("window", windowType != null ? windowType : "" + " " + windowSize);
+                                                    metric.put("window", windowType + " " + windowSize); 
                                                 }
 
                                                 // Add output and frequency
-                                                String collectionOutput = (String) compositeData.get("collection_output");
-                                                String collectionFrequency = (String) compositeData.get("collection_frequency");
-                                                metric.put("output", collectionOutput + " " + collectionFrequency);
+                                                Map<String, Object> processing = (Map<String, Object>) compositeData.get("processing");
+                                                if (processing != null) {
+                                                    String processingType = (String) processing.get("type");
+                                                    String processingCriteria = (String) processing.get("criteria");
+                                                    metric.put(processingType, processingCriteria);
+                                                }
+
+                                                // Add to metrics
+                                                metrics.add(metric);
+
                                             }
-
-                                            // Add to metrics
-                                            metrics.add(metric);
-
                                         }
                                     }
                                 }
                             }
 
-                            // Requirements
+                                // Requirements
                             if ("capabilities.SloMonitoringCapability".equals(capability.get("type"))) {
-                                Map<String, Object> slos = (Map<String, Object>) capability.get("properties").entrySet();
-                                for (Map.Entry<String, Object> slo : slos) {
-                                    Map<String, Object> sloRequirement = new LinkedHashMap<>();
-                                    sloRequirement.put("name", slo.getKey());
-                                    sloRequirement.put("type", "slo");
-                                    sloRequirement.put("constraint", slo.getValue());
-                                    requirements.add(sloRequirement);
+                                List<Map<String, Object>> sloProperties = (List<Map<String, Object>>) capability.get("properties");
+                                if (sloProperties != null) {
+                                    logger.debug("SLO properties for {}: {}", entry.getKey(), sloProperties);
+                                    for (Map<String, Object> slo : sloProperties) {
+                                        Map.Entry<String, Object> sloEntry = (Map.Entry<String, Object>) slo.entrySet().iterator().next();
+                                        Map<String, Object> sloRequirement = new LinkedHashMap<>();
+                                        sloRequirement.put("name", sloEntry.getKey());
+                                        sloRequirement.put("type", "slo");
+                                        Map<String, Object> sloData = (Map<String, Object>) sloEntry.getValue();
+                                        sloRequirement.put("constraint", sloData.get("constraint"));
+                                        requirements.add(sloRequirement);
+                                    }
                                 }
                             }
                         }
                     }
+
+                    componentCaml.put("requirements", requirements);
+
+                    // Add metrics to componentCaml
+                    componentCaml.put("metrics", metrics);
+                    componentsCaml.add(componentCaml);
                 }
-
-                componentCaml.put("requirements", requirements);
-
-                // Add metrics to componentCaml
-                componentCaml.put("metrics", metrics);
-                componentsCaml.add(componentCaml);
             }
         }
-
-        camlYaml.put("spec", Map.of("components", componentsCaml));
-        logger.debug("Components: {}", componentsCaml);
 
         logger.info("Creating scopes section");
         // Scopes section
         List<Map<String, Object>> scopes = new ArrayList<>();
         Map<String, Object> scope = new LinkedHashMap<>();
         scope.put("name", "a_scope");
-        scope.put("components", List.of("a_comoponent"));
+        scope.put("components", componentNames);
         scopes.add(scope);
-        camlYaml.put("scopes", scopes);
         logger.debug("Scopes: {}", scopes);
+
+        //spec contains components and scopes
+        camlYaml.put("spec", Map.of("components", componentsCaml, "scopes", scopes));
+        logger.debug("Components: {}", componentsCaml);
 
         return camlYaml;
     }
