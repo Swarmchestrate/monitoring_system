@@ -31,7 +31,7 @@ public class ToscaToCamlTranslator {
 
             logger.info("Translating TOSCA to CAML");
             // Translate TOSCA to CAML
-            Map<String, Object> camlYaml = translateToscaToCaml(toscaYaml);
+            Map<String, Object> camlYaml = translateToscaToCaml(toscaYaml, inputFilePath);
             logger.debug("Translated CAML YAML: {}", camlYaml);
 
             logger.info("Writing translated CAML YAML to output file: {}", outputFilePath);
@@ -44,9 +44,9 @@ public class ToscaToCamlTranslator {
         }
     }
 
-    private static Map<String, Object> translateToscaToCaml(Map<String, Object> toscaYaml) {
+    private static Map<String, Object> translateToscaToCaml(Map<String, Object> toscaYaml, String inputFilePath) {
         Map<String, Object> camlYaml = new LinkedHashMap<>();
-        camlYaml.put("apiVersion", "swarmchestrate/v0");
+        camlYaml.put("apiVersion", "nebulous/v1");
         camlYaml.put("kind", "MetricModel");
         logger.info("Extracting components");
         // Extract components
@@ -55,6 +55,11 @@ public class ToscaToCamlTranslator {
         logger.info("Creating metadata section");
         // Metadata section
         Map<String, Object> metadata = (Map<String, Object>) toscaYaml.get("metadata");
+        if (metadata == null) {
+            metadata = new LinkedHashMap<>();
+        }
+        String fileName = new File(inputFilePath).getName();
+        metadata.put("fileName", fileName);
         logger.debug("Metadata: {}", metadata);
         camlYaml.put("metadata", metadata);
 
@@ -75,7 +80,7 @@ public class ToscaToCamlTranslator {
                 List<Map<String, Object>> metrics = new ArrayList<>();
                 List<Map<String, Object>> requirements = new ArrayList<>();
 
-                // Loop through the node types of tge component
+                // Loop through the node types of the component
                 for (Map.Entry<String, Object> nodeType : componentNodeTypes.entrySet()) {
                     Map<String, Object> nodeData = (Map<String, Object>) nodeType.getValue();
                     logger.debug("Node data for {}: {}", entry.getKey(), nodeData);
