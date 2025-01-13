@@ -1,18 +1,41 @@
 ---
-apiVersion: "swarmchestrate/v0"
+apiVersion: "nebulous/v1"
 kind: "MetricModel"
 metadata:
   template_name: "ICCS generated types definition"
   template_author: "ICCS"
+  fileName: "tosca-vergi.yaml"
 spec:
+  scopes:
+  - name: "a_scope"
+    components:
+    - "a_comoponent"
   components:
   - name: "a_comoponent"
     requirements:
     - name: "cpu_slo"
       type: "slo"
       constraint: "cpu_util_prct > 80"
-    metrics: []
-scopes:
-- name: "a_scope"
-  components:
-  - "a_comoponent"
+    metrics:
+    - name: "cpu_util_instance"
+      sensor:
+        type: "Netdata"
+        config:
+          scope_contexts: "k8s.cgroup.cpu"
+          results-aggregation: "SUM"
+          metric: "netdata__system__cpu__total"
+      output: "all 15 s"
+    - name: "response_time"
+      sensor:
+        type: "prometheus"
+        config:
+          metric: "request_processing_seconds_sum"
+          port: 9000
+          endpoint: "/"
+          delay: 0
+      output: "all 30 s"
+    - name: "cpu_util_prct"
+      formula: "mean(cpu_util_instance)"
+      output: "all 30 s"
+      window: "sliding 5 min"
+      grouping: "PER_ZONE"

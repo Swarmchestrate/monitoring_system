@@ -13,37 +13,37 @@ metadata:
 spec:
   components:
     - name: a_component
-      requirements:
-        - name: cpu_slo
-          type: slo
-          constraint: 'cpu_util_prct > 80'
+        requirements:
+          - name: cpu_slo
+              type: slo
+              constraint: 'cpu_util_prct > 80'
       metrics:
         - name: cpu_util_prct
-          formula: 'mean( cpu_util_instance ) * my_sgn( mean( cpu_util_instance ) )'
-          grouping: per_zone
-          window: 'sliding 5 min'
-          output: 'all 30 sec'
+            formula: 'mean( cpu_util_instance ) * my_sgn( mean( cpu_util_instance ) )'
+            grouping: per_zone
+            window: 'sliding 5 min'
+            output: 'all 30 sec'
         - name: cpu_util_instance
-          busy-status: true
-          sensor:
-            type: netdata
-            config:
-              scope_contexts: k8s.cgroup.cpu
-              results-aggregation: SUM
-          output: 'all 30 sec'
+            busy-status: true
+            sensor:
+              type: netdata
+              config:
+                scope_contexts: k8s.cgroup.cpu
+                results-aggregation: SUM
+            output: 'all 30 sec'
 
         - name: response_time
-          busy-status: true
-          sensor:
-            type: prometheus
-            config:
-              metric: 'request_processing_seconds_sum'
-              port: 9000
-              endpoint: /
-              delay: 0                    # Initial delay
-            output: 'all 30 s'
+            busy-status: true
+            sensor:
+              type: prometheus
+              config:
+                metric: 'request_processing_seconds_sum'
+                port: 9000
+                endpoint: /
+                delay: 0                    # Initial delay
+              output: 'all 30 s'
   scopes:
     - name: a_scope
-      components: [ 'a_component' ]
+        components: [ 'a_component' ]
 
 
