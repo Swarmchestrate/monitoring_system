@@ -9,12 +9,12 @@
 
 
 # ----------------- EMS Builder image -----------------
-FROM docker.io/library/maven:3.9.6-eclipse-temurin-21 as ems-server-builder
+FROM docker.io/library/maven:3.9.6-eclipse-temurin-21 AS ems-server-builder
 ENV BASEDIR /app
 WORKDIR ${BASEDIR}
 COPY ems-main/ems-core           ${BASEDIR}/ems-core
-COPY ems-swarmchestrate/ems-swarmchestrate   ${BASEDIR}/ems-swarmchestrate
 RUN --mount=type=cache,target=/root/.m2  mvn -f ${BASEDIR}/ems-core/pom.xml -DskipTests clean install -P '!build-docker-image'
+COPY ems-swarmchestrate/ems-swarmchestrate   ${BASEDIR}/ems-swarmchestrate
 RUN --mount=type=cache,target=/root/.m2  mvn -f ${BASEDIR}/ems-swarmchestrate/pom.xml -DskipTests clean install -P '!build-docker-image'
 RUN cp ems-core/control-service/target/control-service.jar . && \
     java -Djarmode=layertools -jar control-service.jar extract

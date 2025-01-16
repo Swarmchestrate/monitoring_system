@@ -41,7 +41,7 @@ services:
       #- EMS_SERVER_ADDRESS=ems ...or SERVER_IP
       #
       #- EMS_TC_FILE=/models/TC/%s.json
-      - EMS_PRELOAD_APP_MODEL=test2.yml
+      - EMS_PRELOAD_APP_MODEL=tosca-vergi.yaml
       - EMS_PRELOAD_CP_MODEL=
       #
       # ===== EMS server --DEBUG-- settings =====

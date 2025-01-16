@@ -28,10 +28,10 @@
         <ems.version>7.0.0-SNAPSHOT</ems.version>
 
         <!-- Spring Boot versions -->
-        <spring.version>6.1.6</spring.version>
-        <spring-boot.version>3.2.5</spring-boot.version>
+        <spring.version>6.1.13</spring.version>
+        <spring-boot.version>3.2.10</spring-boot.version>
         <snakeyaml.version>2.2</snakeyaml.version>
-        <lombok.version>1.18.30</lombok.version>
+        <lombok.version>1.18.34</lombok.version>
     </properties>
 
     <dependencyManagement>
