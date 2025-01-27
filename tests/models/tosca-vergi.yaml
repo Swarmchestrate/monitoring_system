@@ -26,7 +26,7 @@ node_types:
                     collector: Netdata
                     collector_inst: netdata__system__cpu__total
                     config:
-                      scope_contexts: k8s.cgroup.cpu
+                      scope_contexts: system.cpu
                       results-aggregation: SUM
                     collection_frequency: 15 s
                     collection_output: all  #first/last
@@ -67,3 +67,5 @@ node_types:
             properties: 
               - cpu_slo: 
                   constraint: 'cpu_util_prct > 80' 
+              - response_time_slo:
+                  constraint: 'response_time > 80000'
