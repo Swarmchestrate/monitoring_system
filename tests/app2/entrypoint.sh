@@ -9,10 +9,13 @@
 
 BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-if ! command pip3 &> /dev/null; then
-  apt-get install -y python3-pip
-fi
-pip3 install -r $BASEDIR/requirements.txt
+#if ! command pip3 &> /dev/null; then
+#  apt-get install -y python3-pip
+#fi
+#pip3 install -r $BASEDIR/requirements.txt
+
+echo Starting SSHD...
+/usr/sbin/sshd -D &
 
 echo Argument: $1
 

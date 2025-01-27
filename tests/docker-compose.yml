@@ -175,6 +175,7 @@ services:
     build: ./app2
     restart: unless-stopped
     ports:
+       - "22:22"
        - "9000:9000"
     networks:
       upperware_net:
@@ -189,7 +190,7 @@ services:
     restart: unless-stopped
     environment:
       - SSH_USERNAME=ubuntu
-      - PASSWORD=ubuntu
+      - SSH_PASSWORD=ubuntu
       #- AUTHORIZED_KEYS=
       #
       # ----- App1 -----
