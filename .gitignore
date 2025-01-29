@@ -3,4 +3,5 @@ ems-main/
 .DS_STORE
 tests/ubuntu-sshd/
 tests/logs/
+tests/models/NEB-*
 ToscaToMetricModel/target/
