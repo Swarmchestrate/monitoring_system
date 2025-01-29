@@ -10,7 +10,7 @@
 
 # ----------------- EMS Builder image -----------------
 FROM docker.io/library/maven:3.9.6-eclipse-temurin-21 AS ems-server-builder
-ENV BASEDIR /app
+ENV BASEDIR=/app
 WORKDIR ${BASEDIR}
 COPY ems-main/ems-core           ${BASEDIR}/ems-core
 RUN --mount=type=cache,target=/root/.m2  mvn -f ${BASEDIR}/ems-core/pom.xml -DskipTests clean install -P '!build-docker-image'
@@ -43,17 +43,17 @@ USER ${EMS_USER}
 WORKDIR ${EMS_HOME}
 
 # Setup environment
-ENV BASEDIR ${EMS_HOME}
-ENV EMS_CONFIG_DIR ${BASEDIR}/config
+ENV BASEDIR=${EMS_HOME}
+ENV EMS_CONFIG_DIR=${BASEDIR}/config
 
-ENV BIN_DIR ${BASEDIR}/bin
-ENV CONFIG_DIR ${BASEDIR}/config
-ENV LOGS_DIR ${BASEDIR}/logs
-ENV PUBLIC_DIR ${BASEDIR}/public_resources
+ENV BIN_DIR=${BASEDIR}/bin
+ENV CONFIG_DIR=${BASEDIR}/config
+ENV LOGS_DIR=${BASEDIR}/logs
+ENV PUBLIC_DIR=${BASEDIR}/public_resources
 
 # Download a JRE suitable for running EMS clients, and
 # offer it for download
-ENV JRE_LINUX_PACKAGE zulu21.34.19-ca-jre21.0.3-linux_x64.tar.gz
+ENV JRE_LINUX_PACKAGE=zulu21.34.19-ca-jre21.0.3-linux_x64.tar.gz
 RUN mkdir -p ${PUBLIC_DIR}/resources && \
     wget --progress=dot:giga -O ${PUBLIC_DIR}/resources/${JRE_LINUX_PACKAGE} https://cdn.azul.com/zulu/bin/${JRE_LINUX_PACKAGE}
 
