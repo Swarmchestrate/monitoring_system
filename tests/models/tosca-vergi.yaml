@@ -62,10 +62,23 @@ node_types:
                       type: 'grouping'  #fasdsd
                       criteria: 'PER_ZONE' #PER_HOST/PER_ZONE/PER_REGION/CROSS-SWARMS 
                       
+                - mean_response_time:
+                    formula:
+                      type: 'mean'
+                      argument: 'response_time'
+                      collection_frequency: 30 s
+                      collection_output: all  #first/last
+                    window:
+                      type: 'sliding'
+                      size: '5 min'
+                    processing:
+                      type: 'grouping'  #fasdsd
+                      criteria: 'PER_ZONE' #PER_HOST/PER_ZONE/PER_REGION/CROSS-SWARMS
+
         - slo:
             type: capabilities.SloMonitoringCapability 
             properties: 
               - cpu_slo: 
                   constraint: 'cpu_util_prct > 80' 
               - response_time_slo:
-                  constraint: 'response_time > 80000'
+                  constraint: 'mean_response_time > 80000'
