@@ -170,7 +170,7 @@ services:
         ipv4_address: 10.10.0.4
 
   python-app:
-    container_name: "pythonpython-app"
+    container_name: "python-app"
     image: "python-app"
     build: ./app2
     restart: unless-stopped
