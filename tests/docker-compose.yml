@@ -177,6 +177,7 @@ services:
     ports:
        - "22:22"
        - "9000:9000"
+       - "19999:19999"
     networks:
       upperware_net:
         ipv4_address: 10.10.0.5
