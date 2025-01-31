@@ -23,8 +23,8 @@ node_types:
             properties:
               raw:
                 - cpu_util_instance: 
-                    collector: Netdata
-                    collector_inst: netdata__system__cpu__total
+                    collector: netdata
+#                    collector_inst: netdata__system__cpu__user
                     config:
                       scope_contexts: system.cpu
                       results-aggregation: SUM
@@ -34,22 +34,22 @@ node_types:
                       id: 'prct'
                       type: real
                       range: [0, 100] 
-                - response_time: 
+                - response_time:
                     collector: prometheus
                     collector_inst: request_processing_seconds_sum
                     config:
                       metric: 'request_processing_seconds_sum'
                       port: 9000
                       endpoint: /
-                      delay: 0                     
+                      delay: 0
                     collection_frequency: 30 s
-                    collection_output: all  
-                    unit: 
+                    collection_output: all
+                    unit:
                       id: 's'
                       type: real
 
               composite:
-                - cpu_util_prct: 
+                - mean_cpu_util_prct:
                     formula: 
                       type: 'mean'
                       argument: 'cpu_util_instance'
@@ -58,9 +58,9 @@ node_types:
                     window: 
                       type: 'sliding'  
                       size: '5 min'
-                    processing: 
-                      type: 'grouping'  #fasdsd
-                      criteria: 'PER_ZONE' #PER_HOST/PER_ZONE/PER_REGION/CROSS-SWARMS 
+#                    processing:
+#                      type: 'grouping'  #fasdsd
+#                      criteria: 'PER_ZONE' #PER_HOST/PER_ZONE/PER_REGION/CROSS-SWARMS
                       
                 - mean_response_time:
                     formula:
@@ -71,14 +71,14 @@ node_types:
                     window:
                       type: 'sliding'
                       size: '5 min'
-                    processing:
-                      type: 'grouping'  #fasdsd
-                      criteria: 'PER_ZONE' #PER_HOST/PER_ZONE/PER_REGION/CROSS-SWARMS
+#                    processing:
+#                      type: 'grouping'  #fasdsd
+#                      criteria: 'PER_ZONE' #PER_HOST/PER_ZONE/PER_REGION/CROSS-SWARMS
 
         - slo:
             type: capabilities.SloMonitoringCapability 
             properties: 
               - cpu_slo: 
-                  constraint: 'cpu_util_prct > 80' 
+                  constraint: 'mean_cpu_util_prct > 80'
               - response_time_slo:
-                  constraint: 'mean_response_time > 80000'
+                  constraint: 'mean_response_time > 500'

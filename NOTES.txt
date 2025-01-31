@@ -19,9 +19,9 @@ docker compose -f tests\docker-compose.yml up
 docker cp .\tests\test2.yml ems:/opt/ems-server/models/
 
 docker exec -it ems bash
-# curl -v -k --request POST "https://localhost:8111/appModel" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"test2.yml\" }"
+# curl -v -k --request POST "https://localhost:8111/appModel" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"tosca-vergi.yaml\" }"
 
-# curl -v -k --request POST "https://localhost:8111/baguette/registerNode" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"z\", \"id\": \"VM1\", \"name\": \"VM1\", \"operatingSystem\": \"UBUNTU\", \"address\": \"vm1\", \"ssh\": { \"port\": \"22\", \"username\": \"ubuntu\", \"password\": \"ubuntu\" }, \"type\": \"VM\", \"provider\": \"LOCAL\", \"zone-id\": \"LOCAL-ZONE\" }"
+# curl -v -k --request POST "https://localhost:8111/baguette/registerNode" --header "EMS-API-KEY: 1234567890" --header "Content-Type: application/json" --data "{ \"applicationId\": \"z\", \"id\": \"VM1\", \"name\": \"VM1\", \"operatingSystem\": \"UBUNTU\", \"address\": \"python-app\", \"ssh\": { \"port\": \"22\", \"username\": \"ubuntu\", \"password\": \"ubuntu\" }, \"type\": \"VM\", \"provider\": \"LOCAL\", \"zone-id\": \"LOCAL-ZONE\" }"
 
 # exit
 
