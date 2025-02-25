@@ -54,7 +54,7 @@ services:
       - RESTART_EXIT_CODE=99
       #
       # =====  Security and Web Management settings  =====
-      - CONTROL_SSL_KEY_ENTRY_GENERATE=ALWAYS        # Keystore & Truststore are generated during container startup
+      - CONTROL_SSL_KEY_ENTRY_GENERATE=ALWAYS # Keystore & Truststore are generated during container startup
       #      - CONTROL_SSL_KEYSTORE_FILE=/certs/keystore.p12
       - CONTROL_SSL_KEYSTORE_PASSWORD=${P_KEYSTORE_PASSWORD}
       #      - CONTROL_SSL_TRUSTSTORE_FILE=/certs/truststore.p12
@@ -65,7 +65,7 @@ services:
       #
       #- MELODIC_SECURITY_ENABLED=false
       - JWT_SECRET=${P_JWT_SECRET}
-      - WEB_SECURITY_JWT_AUTHENTICATION_REQUEST_PARAMETER=jwt    #XXX:TODO: Comment out these two settings for improved security
+      - WEB_SECURITY_JWT_AUTHENTICATION_REQUEST_PARAMETER=jwt #XXX:TODO: Comment out these two settings for improved security
       - WEB_SECURITY_JWT_AUTHENTICATION_PRINT_SAMPLE_TOKEN=true
       - WEB_SECURITY_API_KEY_AUTHENTICATION_VALUE=${P_WEB_API_KEY_VALUE}
       - WEB_SECURITY_FORM_AUTHENTICATION_PASSWORD=${P_WEB_ADMIN_PASSWORD}
@@ -175,16 +175,23 @@ services:
     build: ./app2
     restart: unless-stopped
     ports:
-       - "22:22"
-       - "9000:9000"
-       - "19999:19999"
+      - "22:22"
+      - "9000:9000"
+      - "19999:19999"
     networks:
       upperware_net:
         ipv4_address: 10.10.0.5
 
+  brokerapp:
+    build: ./brokerapp
+    depends_on:
+      - ems
+    networks:
+      upperware_net:
+        ipv4_address: 10.10.0.8
   vm1:
     container_name: "vm1"
-    image:  ubuntu-sshd:latest
+    image: ubuntu-sshd:latest
     build: ./ubuntu-sshd
     # See: https://github.com/aoudiamoncef/ubuntu-sshd
     #    working_dir: "/home/ubuntu/baguette-client"
@@ -221,7 +228,7 @@ services:
 
   vm2:
     container_name: "vm2"
-    image:  ubuntu-sshd:latest
+    image: ubuntu-sshd:latest
     build: ./ubuntu-sshd
     # See: https://github.com/aoudiamoncef/ubuntu-sshd
     #    working_dir: "/home/ubuntu/baguette-client"
@@ -237,7 +244,6 @@ services:
     volumes:
       - ./app3:/app3
     ports:
-      
       - "1032:22"
       - "1026:61616"
       - "1027:61617"
