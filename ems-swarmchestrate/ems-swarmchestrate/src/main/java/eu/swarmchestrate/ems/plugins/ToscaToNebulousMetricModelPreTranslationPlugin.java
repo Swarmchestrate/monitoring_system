@@ -90,7 +90,7 @@ public class ToscaToNebulousMetricModelPreTranslationPlugin implements PreTransl
     protected Map<String, Object> translateToscaToCaml(Map<String, Object> toscaYaml, File inputFile) {
         Map<String, Object> camlYaml = new LinkedHashMap<>();
         camlYaml.put("apiVersion", "nebulous/v1");
-        camlYaml.put("kind", "MetricModel");
+        camlYaml.put("kind", "Metric Model");
         log.info("Extracting components");
         // Extract components
         List<Map<String, Object>> componentsCaml = new ArrayList<>();
@@ -151,6 +151,7 @@ public class ToscaToNebulousMetricModelPreTranslationPlugin implements PreTransl
                                             log.debug("Raw metric: {}", rawMetric);
                                             Map<String, Object> metric = new LinkedHashMap<>();
                                             metric.put("name", rawMetricEntry.getKey());
+                                            metric.put("busy-status", true);
 
                                             Map<String, Object> rawMetricData = (Map<String, Object>) rawMetricEntry.getValue();
                                             if (rawMetricData != null) {
