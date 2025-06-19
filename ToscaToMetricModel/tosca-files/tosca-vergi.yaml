@@ -13,7 +13,7 @@ imports:
    - placement-constraints:1.0
 
 node_types:
-  a_comoponent:
+  a_component:
     nodes.AdvancedMonitoringCollector: 
       derived_from: tosca.nodes.Root 
       description: An example illustrating metric collection possibilities 

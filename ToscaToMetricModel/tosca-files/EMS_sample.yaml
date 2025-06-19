@@ -1,0 +1,64 @@
+tosca_definitions_version: tosca_2_0
+
+imports:
+  - profiles/eu.swarmchestrate/ems/0.1/profile.yaml
+  - profiles/eu.swarmchestrate/micado/0.1/profile.yaml
+
+metadata:
+   template_name: ICCS generated types definition
+   template_author: ICCS
+
+node_types:
+
+  webserver: # e.g. webserver, database, etc.
+    type: MonitoringComponent
+    capabilities:
+      metrics:
+        properties:
+          raw:
+            - name: cpu_util_instance
+              sensor: "Netdata"
+              config:
+                scope_contexts: k8s.cgroup.cpu
+                results-aggregation: SUM
+              collection_frequency: "30 sec"
+              collection_output: "all"
+            - name: response_time
+              sensor: "Prometheus"
+              config:
+                metric: 'request_processing_seconds_sum'
+                port: 9000
+                endpoint: '/'
+                delay: 0
+              collection_frequency: "30 sec"
+              collection_output: "all"
+          composite:
+            - name: cpu_util_prct
+              formula: mean( cpu_util_instance )
+              collection_frequency: "30 sec"
+              collection_output: "all"
+              window_type: "sliding"
+              window_size: "5 min"
+              grouping: "per_zone" # e.g. PER_HOST/PER_ZONE/PER_REGION/CROSS-SWARMS 
+
+      requirements:
+        properties:
+          slo:
+            - name: cpu_slo
+              constraint: "cpu_util_prct > 80"
+
+  
+  app-wide-scope: # e.g app-wide-scope
+    type: MonitoringScope
+    properties:
+      components:
+        - webserver
+    capabilities:
+      metrics:
+        properties:
+          raw:
+          composite:
+      requirements:
+        properties:
+          slo:
+      
