@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  TOSCA_MODEL_FILE: tosca_vergi.yaml
+  TOSCA_MODEL_PATH: /shared/tosca_vergi.yaml
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2026-02-26T15:35:54Z"
+  name: myconfig-dimitris
+  namespace: default
+  resourceVersion: "973946"
+  uid: c6c6e46d-33ad-49a6-a26d-4e2f7fe33840
